@@ -1,6 +1,7 @@
 import React from "react";
 import { experiences, ExperienceItem } from "@/data/experience";
-import { Briefcase, GraduationCap, Calendar, MapPin, ArrowUpRight, Terminal } from "lucide-react";
+import { profile } from "@/data/profile";
+import { Briefcase, GraduationCap, Calendar, MapPin, Terminal, Award, Languages } from "lucide-react";
 
 export function ExperienceTimeline() {
   return (
@@ -16,7 +17,7 @@ export function ExperienceTimeline() {
             Experience &amp; Background
           </h2>
           <p className="mt-3 text-zinc-400 leading-relaxed text-base">
-            Where I have shipped production code, collaborated with cross-functional teams, and tackled real-world performance constraints.
+            Where I have shipped production business software, engineered AI agent workflows, and solved real-world enterprise constraints.
           </p>
         </div>
 
@@ -95,6 +96,58 @@ export function ExperienceTimeline() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Certifications & Languages Card Grid */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Certifications (2 cols) */}
+          <div className="md:col-span-2 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-4">
+              <Award className="h-4 w-4" />
+              <span className="uppercase tracking-wider">Professional Certifications</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {profile.certifications.map((cert, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-xl border border-zinc-800/70 bg-zinc-950/50 flex flex-col justify-between"
+                >
+                  <div className="text-xs font-semibold text-zinc-200">
+                    {cert.title}
+                  </div>
+                  <div className="mt-1 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                    <span>{cert.issuer}</span>
+                    <span className="text-emerald-400/90 font-medium">{cert.year}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Languages & Quick Info (1 col) */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 backdrop-blur-sm flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-4">
+                <Languages className="h-4 w-4" />
+                <span className="uppercase tracking-wider">Spoken Languages</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {profile.languages.map((lang) => (
+                  <span
+                    key={lang}
+                    className="px-3 py-1 rounded-lg border border-zinc-700/60 bg-zinc-800 text-zinc-200 text-xs font-mono"
+                  >
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-zinc-800/70 text-xs font-mono text-zinc-400">
+              <div className="text-zinc-500 text-[11px]">Primary Location:</div>
+              <div className="text-zinc-200 font-medium mt-0.5">{profile.location}</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

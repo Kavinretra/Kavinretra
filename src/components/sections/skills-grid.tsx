@@ -4,6 +4,7 @@ import { Server, Layout, Database, Cpu, Terminal, Sparkles } from "lucide-react"
 
 export function SkillsGrid() {
   const iconMap: Record<string, React.ElementType> = {
+    Sparkles: Sparkles,
     Server: Server,
     Layout: Layout,
     Database: Database,

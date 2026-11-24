@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Mail, Terminal, Database, Server, Code2, Layers } from "lucide-react";
-import { GithubIcon } from "@/components/ui/icons";
+import { ArrowRight, Mail, Terminal, Database, Server, Code2, Layers, Sparkles, Cloud } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface HeroProps {
   onOpenCommandPalette?: () => void;
@@ -13,10 +12,11 @@ interface HeroProps {
 
 export function Hero({ onOpenCommandPalette }: HeroProps) {
   const corePillars = [
-    { label: "React", category: "Frontend", icon: Code2, color: "text-cyan-400" },
+    { label: "React.js", category: "Frontend", icon: Code2, color: "text-cyan-400" },
     { label: "Python & Django", category: "Backend", icon: Server, color: "text-emerald-400" },
-    { label: "Node.js", category: "Runtime", icon: Layers, color: "text-green-400" },
-    { label: "MySQL", category: "Database", icon: Database, color: "text-sky-400" },
+    { label: "AI & Agents", category: "Intelligent Workflows", icon: Sparkles, color: "text-amber-400" },
+    { label: "Node.js", category: "Services", icon: Layers, color: "text-green-400" },
+    { label: "MySQL & AWS", category: "Cloud & Data", icon: Cloud, color: "text-sky-400" },
   ];
 
   return (
@@ -27,7 +27,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Availability Status Badge */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex flex-wrap items-center gap-3 mb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1 text-xs font-mono text-emerald-300 backdrop-blur-sm shadow-sm shadow-emerald-950/50">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -36,7 +36,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
             <span>{profile.status.text}</span>
           </div>
 
-          <span className="hidden sm:inline-block text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500">
             • {profile.location}
           </span>
         </div>
@@ -44,25 +44,26 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
         {/* Main Headline */}
         <div className="max-w-4xl space-y-4">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
-            Full-Stack Engineer building{" "}
+            Full-Stack Engineer crafting{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">
-              scalable systems
+              enterprise systems
             </span>{" "}
-            end-to-end.
+            &amp; AI workflows.
           </h1>
 
-          <p className="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-2xl font-normal pt-2">
-            Hi, I&apos;m <span className="font-semibold text-white">{profile.name}</span>. I build production-grade web applications with{" "}
-            <span className="text-zinc-100 font-medium">React</span>,{" "}
+          <p className="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-3xl font-normal pt-2">
+            Hi, I&apos;m <span className="font-semibold text-white">{profile.name}</span>. Full-Stack Developer with 2+ years of experience engineering scalable business platforms (CRM, HRMS, Accounting) and AI agent workflows using{" "}
             <span className="text-zinc-100 font-medium">Python &amp; Django</span>,{" "}
-            <span className="text-zinc-100 font-medium">Node.js</span>, and{" "}
-            <span className="text-zinc-100 font-medium">MySQL</span>. Passionate about product engineering, clean database schemas, and performant architectures.
+            <span className="text-zinc-100 font-medium">React.js</span>,{" "}
+            <span className="text-zinc-100 font-medium">Node.js</span>,{" "}
+            <span className="text-zinc-100 font-medium">MySQL</span>, and{" "}
+            <span className="text-zinc-100 font-medium">AWS</span>.
           </p>
         </div>
 
         {/* Interactive Stack Pillars */}
         <div className="mt-8 flex flex-wrap gap-2.5 items-center">
-          <span className="text-xs font-mono text-zinc-500 mr-1">Core Stack:</span>
+          <span className="text-xs font-mono text-zinc-500 mr-1">Core Arsenal:</span>
           {corePillars.map((pill) => {
             const Icon = pill.icon;
             return (
@@ -87,7 +88,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
               el?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            Explore Featured Work
+            Explore Enterprise Work
             <ArrowRight className="h-4 w-4" />
           </Button>
 
@@ -104,13 +105,23 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
           </Button>
 
           <a
+            href={profile.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center h-12 px-5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/80 transition-all text-sm font-medium gap-2"
+          >
+            <LinkedinIcon className="h-4 w-4 text-sky-400" />
+            <span>LinkedIn</span>
+          </a>
+
+          <a
             href={profile.socials.github}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center h-12 px-5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/80 transition-all text-sm font-medium gap-2"
           >
             <GithubIcon className="h-4 w-4" />
-            <span>GitHub Profile</span>
+            <span>GitHub</span>
           </a>
 
           <button

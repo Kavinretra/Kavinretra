@@ -13,27 +13,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kavin Retra | Full-Stack Software Engineer & Product Builder",
+  title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
   description:
-    "Full-Stack Developer with 1–2 years of experience building scalable web applications using React, Python, Django, Node.js, and MySQL. Passionate about end-to-end product engineering and system design.",
+    "Full Stack Software Engineer with 2+ years of experience developing enterprise applications (CRM, HRMS, Accounting) and AI agent workflows using Python, Django, React.js, Node.js, MySQL, and AWS.",
   keywords: [
+    "Kavin Retra S N",
     "Kavin Retra",
     "Software Engineer",
-    "Full-Stack Developer",
-    "React",
-    "Python",
+    "Full Stack Developer",
+    "AI Agents",
+    "Agentic Workflows",
     "Django",
+    "Django REST Framework",
+    "React.js",
     "Node.js",
     "MySQL",
-    "TypeScript",
-    "System Design",
-    "Product Engineer",
+    "PostgreSQL",
+    "AWS",
+    "Docker",
+    "CoolGen Solutions",
   ],
-  authors: [{ name: "Kavin Retra", url: "https://github.com/Kavinretra" }],
+  authors: [{ name: "Kavin Retra S N", url: "https://github.com/Kavinretra" }],
   openGraph: {
-    title: "Kavin Retra | Full-Stack Software Engineer & Product Builder",
+    title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
     description:
-      "Full-Stack Developer building scalable web applications using React, Python, Django, Node.js, and MySQL.",
+      "Full Stack Software Engineer developing enterprise business applications and AI agent workflows with Django, React, Node.js, and AWS.",
     url: "https://github.com/Kavinretra",
     siteName: "Kavin Retra Portfolio",
     locale: "en_US",
@@ -41,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kavin Retra | Full-Stack Software Engineer & Product Builder",
+    title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
     description:
-      "Full-Stack Developer building scalable web applications using React, Python, Django, Node.js, and MySQL.",
+      "Full Stack Software Engineer developing enterprise business applications and AI agent workflows with Django, React, Node.js, and AWS.",
   },
 };
 

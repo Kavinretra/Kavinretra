@@ -13,7 +13,7 @@ export interface Project {
   id: string;
   title: string;
   tagline: string;
-  category: "Full-Stack System" | "Backend API" | "Interactive Web Product";
+  category: "Enterprise System" | "FinTech & Payments" | "Cloud & HRMS" | "AI & Automation";
   description: string;
   featured: boolean;
   architecture: {
@@ -32,104 +32,137 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "enterprise-ops-hub",
-    title: "OmniOps - Multi-Tenant Operations & Resource Platform",
-    category: "Full-Stack System",
-    tagline: "Scalable full-stack operational engine built with Django REST, React, and MySQL.",
+    id: "sales-crm-platform",
+    title: "Enterprise Sales CRM Platform",
+    category: "Enterprise System",
+    tagline: "Comprehensive CRM engine with lead pipeline tracking, invoicing, and granular RBAC.",
     description:
-      "An end-to-end multi-tenant business operations dashboard allowing organizations to manage work streams, automated billing pipelines, and team permissions with granular role-based security.",
+      "Engineered an enterprise-grade Sales CRM platform at CoolGen Solutions covering end-to-end sales lifecycles: lead acquisition, stage-by-stage deal tracking, automated invoice generation, and real-time revenue analytics dashboards.",
     featured: true,
     architecture: {
-      client: "React 19 + TypeScript + Tailwind CSS with optimistic state updates",
-      server: "Django REST Framework (DRF) with custom permission classes & throttled endpoints",
-      database: "MySQL 8.0 with InnoDB relational constraints, foreign keys, and indexed foreign columns",
-      caching: "Redis cache-aside for high-frequency dashboard summary queries",
+      client: "React.js with reusable modular component hierarchy & responsive dashboards",
+      server: "Django REST Framework with JWT authentication & role-based access control (RBAC)",
+      database: "MySQL relational design supporting normalized lead, deal, and invoicing pipelines",
     },
-    stack: ["React", "Python", "Django", "Django REST", "MySQL", "TypeScript", "Tailwind CSS"],
+    stack: ["React.js", "Python", "Django", "Django REST Framework", "MySQL", "JWT Auth", "RBAC"],
     challenges: [
       {
-        problem: "Slow dashboard aggregations across 50,000+ relational records causing 800ms+ API latency.",
-        solution: "Identified unindexed foreign keys and eliminated N+1 ORM queries using `select_related()` and added composite indexing on `(tenant_id, created_at, status)`.",
-        tradeoff: "Slightly higher write overhead on record inserts in exchange for 75% faster read performance.",
+        problem: "Managing granular permission boundaries across sales reps, managers, and executives.",
+        solution: "Implemented custom Django REST permission classes combined with JWT claims, ensuring users only access authorized leads and financial records.",
       },
       {
-        problem: "Race conditions during concurrent status transitions across multi-user sessions.",
-        solution: "Implemented atomic database transactions (`transaction.atomic()`) with `select_for_update()` row-level locks in MySQL.",
+        problem: "Frontend redundancy across deal stages and repetitive reporting interfaces.",
+        solution: "Constructed a library of reusable React components (data tables, filter chips, status badges) that accelerated subsequent module development by 40%.",
       },
     ],
     metrics: [
-      { label: "Query Latency Reduction", value: "75%" },
-      { label: "P95 Response Time", value: "< 85ms" },
-      { label: "Concurrency Safety", value: "100% ACID" },
+      { label: "Architecture", value: "Decoupled REST" },
+      { label: "Security", value: "JWT + RBAC" },
+      { label: "Modules", value: "Leads, Deals, Invoices" },
     ],
     githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://github.com/Kavinretra",
-    diagramAscii: `[React Frontend] --(HTTPS / JWT)--> [Django REST API] --(ORM / Raw SQL)--> [MySQL 8.0 DB]
-                                       |
-                                       +--(Cache Aside)--> [Redis Store]`,
+    liveUrl: "https://linkedin.com/in/kavinretra",
+    diagramAscii: `[React.js Client] --(JWT Bearer)--> [Django REST Framework API]
+                                         |
+                                         +--(RBAC Guard)--> [MySQL Database: Leads / Deals / Invoices]`,
   },
   {
-    id: "async-task-router",
-    title: "StreamForge - Asynchronous Event & Task Router",
-    category: "Backend API",
-    tagline: "High-throughput Node.js microservice handling decoupled background jobs and webhooks.",
+    id: "accounting-payments-platform",
+    title: "Accounting & Financial Management Platform",
+    category: "FinTech & Payments",
+    tagline: "Financial operations engine combining Django REST with Node.js payment microservices.",
     description:
-      "A high-concurrency Node.js and Express RESTful engine designed to process inbound webhook payloads, validate schemas with strict contracts, and queue jobs asynchronously.",
+      "Architected a financial management and ledger platform. Handled core accounting transactions via Django and built high-performance payment-related services using Node.js and Express.js, deployed in Docker environments.",
     featured: true,
     architecture: {
-      client: "Lightweight admin monitoring dashboard in React with live status pills",
-      server: "Node.js (LTS) + Express.js with async middlewares, rate-limiting & structured Pino logging",
-      database: "MySQL for persistent transactional logs, state tracking, and failure re-drive queues",
+      client: "React.js frontend interface with transactional summary views and audit logs",
+      server: "Hybrid backend: Django for ledger calculations + Node.js/Express.js for payment pipelines",
+      database: "MySQL transactional database enforcing strict balance constraints and foreign keys",
+      caching: "Docker containerization for local environment parity and production deployment",
     },
-    stack: ["Node.js", "Express.js", "MySQL", "JavaScript", "REST APIs", "Postman"],
+    stack: ["Django", "Django REST", "Node.js", "Express.js", "React.js", "MySQL", "Docker"],
     challenges: [
       {
-        problem: "Inbound webhook retries causing duplicate task processing and conflicting database writes.",
-        solution: "Engineered an idempotency layer utilizing unique payload hash keys stored in a dedicated MySQL deduplication table with automated TTL cleanup.",
+        problem: "Integrating asynchronous payment gateway webhooks without delaying core ledger calculations.",
+        solution: "Decoupled payment gateway listeners into a lightweight Node.js/Express service, updating MySQL transaction tables and triggering Django ledger updates asynchronously.",
       },
       {
-        problem: "Memory spikes and event loop blocking during batch JSON ingestion.",
-        solution: "Streamed large payloads via JSON chunking pipelines instead of loading entire payloads into V8 heap memory.",
+        problem: "Ensuring exact environment parity between local development and staging servers.",
+        solution: "Containerized the multi-service stack with Docker, establishing reproducible database migrations and runtime dependencies.",
       },
     ],
     metrics: [
-      { label: "Throughput Capacity", value: "3,500 req/s" },
-      { label: "Deduplication Rate", value: "100%" },
-      { label: "Uptime Target", value: "99.95%" },
+      { label: "Services", value: "Django + Node.js" },
+      { label: "Deployment", value: "Docker Containers" },
+      { label: "Data Integrity", value: "ACID Ledger" },
     ],
     githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://github.com/Kavinretra",
-    diagramAscii: `[External Webhooks] --> [Express Rate Limiter] --> [Idempotency Key Check]
-                                                  |
-                                                  v
-                                     [MySQL Persistent Queue] --> [Worker Loop]`,
+    liveUrl: "https://linkedin.com/in/kavinretra",
+    diagramAscii: `[React.js UI] ---> [Django REST: Accounting & Invoices] ---> [MySQL 8.0 DB]
+                  ---> [Node.js / Express: Payment Service] -----^`,
   },
   {
-    id: "catalog-inventory-engine",
-    title: "InventoryCore - High-Integrity Catalog & Order System",
-    category: "Full-Stack System",
-    tagline: "Relational inventory management system with live stock ledgering and dynamic filtering.",
+    id: "hrms-platform",
+    title: "Enterprise Employee Management System (HRMS)",
+    category: "Cloud & HRMS",
+    tagline: "HRMS platform featuring organizational hierarchy workflows and AWS S3 document vaults.",
     description:
-      "Engineered an inventory control system with real-time stock allocation, dynamic multi-attribute product filters, and audit trail ledgering built on Python/Django and MySQL.",
+      "Developed enterprise HRMS modules for comprehensive employee management, onboarding workflows, attendance logging, and organizational reporting. Integrated AWS S3 for secure employee document storage.",
     featured: true,
     architecture: {
-      client: "React with client-side caching and debounced faceted filtering",
-      server: "Python / Django with optimized ORM serialization and custom viewsets",
-      database: "MySQL normalized schema with strict foreign key cascading rules and audit history logs",
+      client: "Responsive React.js web and mobile-adapted interfaces for employee self-service",
+      server: "Django & REST APIs managing complex hierarchy approvals and multi-level permissions",
+      database: "MySQL for organizational employee schemas, attendance tracking, and audit logs",
+      caching: "AWS S3 for encrypted document storage (contracts, IDs, verification certificates)",
     },
-    stack: ["React", "Python", "Django", "MySQL", "Tailwind CSS"],
+    stack: ["React.js", "Python", "Django", "AWS S3", "MySQL", "Role-Based Access Control"],
     challenges: [
       {
-        problem: "Stock discrepancies when multiple users reserved inventory items at the exact same second.",
-        solution: "Designed an inventory ledger pattern where mutations are append-only rows, preventing negative balance discrepancies and maintaining full audit trails.",
+        problem: "Securely handling sensitive employee identity documents and confidential contracts.",
+        solution: "Integrated AWS S3 with pre-signed upload URLs and access restricted via IAM and application-level role authentication.",
+      },
+      {
+        problem: "Modeling complex reporting hierarchies where manager approvals cascade dynamically.",
+        solution: "Designed recursive relational hierarchy queries in MySQL and verified permission validation across every approval step.",
       },
     ],
     metrics: [
-      { label: "Inventory Discrepancy", value: "0%" },
-      { label: "Filter Query Execution", value: "< 35ms" },
-      { label: "Database Normalization", value: "3NF Compliant" },
+      { label: "Cloud Storage", value: "AWS S3 Secure" },
+      { label: "Access Control", value: "Hierarchical RBAC" },
+      { label: "Workflows", value: "Onboard, Attend, Report" },
     ],
     githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://github.com/Kavinretra",
+    liveUrl: "https://linkedin.com/in/kavinretra",
+    diagramAscii: `[React.js Frontend] --> [Django REST API] --> [MySQL: Employee Schemas]
+                                      |
+                                      +--(Pre-signed URLs)--> [AWS S3 Document Vault]`,
+  },
+  {
+    id: "ai-agent-automation",
+    title: "AI Agent & LLM Automation Workflows",
+    category: "AI & Automation",
+    tagline: "Intelligent agent orchestration, tool calling, and prompt engineering pipelines.",
+    description:
+      "Engineered automated agentic workflows integrating Large Language Models (LLMs) with enterprise tools. Implemented prompt engineering techniques, function orchestration, and structured tool calling to automate multi-step business tasks.",
+    featured: true,
+    architecture: {
+      client: "Interactive chat & task execution monitoring dashboard",
+      server: "Python orchestration service managing LLM context, schema validation, and tool dispatch",
+      database: "PostgreSQL / MySQL for persistent conversation logs and tool output caching",
+    },
+    stack: ["Python", "AI Agents", "LLM Integration", "Prompt Engineering", "Tool Calling", "REST APIs"],
+    challenges: [
+      {
+        problem: "Preventing hallucinations and ensuring LLM outputs conform to rigid API schemas.",
+        solution: "Implemented strict function calling specifications with Pydantic/JSON schema validation, enforcing tool argument formats before execution.",
+      },
+    ],
+    metrics: [
+      { label: "Orchestration", value: "Tool Calling" },
+      { label: "Output Schema", value: "Strict JSON" },
+      { label: "Architecture", value: "Agentic Loop" },
+    ],
+    githubUrl: "https://github.com/Kavinretra",
+    liveUrl: "https://linkedin.com/in/kavinretra",
   },
 ];

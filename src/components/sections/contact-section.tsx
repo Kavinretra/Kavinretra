@@ -55,32 +55,42 @@ export function ContactSection() {
               I am actively looking for full-stack and backend software engineering opportunities where I can solve challenging problems, optimize database systems, and deliver high-quality products.
             </p>
 
-            {/* Direct Email Card */}
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 backdrop-blur-sm space-y-3">
-              <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
-                Direct Email
-              </span>
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-mono text-sm sm:text-base text-zinc-100 font-semibold select-all">
-                  {profile.socials.email}
+            {/* Direct Email & Phone Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4 backdrop-blur-sm space-y-2">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
+                  Direct Email
                 </span>
-                <button
-                  onClick={copyEmail}
-                  type="button"
-                  className="flex items-center gap-1.5 rounded-lg border border-zinc-700/80 bg-zinc-800 px-3 py-1.5 text-xs font-mono text-zinc-300 hover:text-white hover:border-emerald-500/50 transition-colors"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-3.5 w-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3.5 w-3.5" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs text-zinc-100 font-semibold truncate select-all">
+                    {profile.socials.email}
+                  </span>
+                  <button
+                    onClick={copyEmail}
+                    type="button"
+                    className="flex items-center gap-1 rounded-md border border-zinc-700/80 bg-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-300 hover:text-white hover:border-emerald-500/50 transition-colors shrink-0"
+                  >
+                    {copied ? (
+                      <Check className="h-3 w-3 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-3 w-3" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4 backdrop-blur-sm space-y-2">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
+                  Direct Phone
+                </span>
+                <div className="flex items-center justify-between gap-2">
+                  <a
+                    href={`tel:${profile.phone}`}
+                    className="font-mono text-xs text-zinc-100 font-semibold hover:text-emerald-400 transition-colors"
+                  >
+                    {profile.phone}
+                  </a>
+                </div>
               </div>
             </div>
 

@@ -6,7 +6,7 @@ export interface ExperienceItem {
   location: string;
   period: string;
   current: boolean;
-  type: "Full-Time" | "Education" | "Milestone";
+  type: "Full-Time" | "Internship" | "Education";
   summary: string;
   responsibilities: string[];
   technologies: string[];
@@ -14,40 +14,73 @@ export interface ExperienceItem {
 
 export const experiences: ExperienceItem[] = [
   {
-    id: "coolgen-tech",
-    role: "Full-Stack Software Engineer",
-    company: "CoolGen Tech Solution Pvt Ltd",
-    companyUrl: "https://github.com/Kavinretra",
-    location: "Nagercoil, India",
-    period: "2023 — Present",
+    id: "coolgen-solutions",
+    role: "Software Engineer",
+    company: "CoolGen Solutions",
+    companyUrl: "https://linkedin.com/in/kavinretra",
+    location: "Kanyakumari / Nagercoil, India",
+    period: "December 2024 — Present",
     current: true,
     type: "Full-Time",
     summary:
-      "Core developer responsible for architecting and delivering production web applications, database schemas, and REST APIs for scalable client platforms.",
+      "Engineered and maintained mission-critical enterprise business platforms including Sales CRM, Accounting & Payments, HRMS, and custom web applications.",
     responsibilities: [
-      "Engineered full-stack features end-to-end using React on the frontend and Django / Node.js on the backend, accelerating feature turnaround by 30%.",
-      "Designed and maintained MySQL relational schemas with strict foreign key integrity, creating composite indexes that lowered critical query latency by up to 50%.",
-      "Built resilient RESTful API endpoints utilizing Django REST Framework and Express.js, implementing JWT authentication, input validation, and role-based permissions.",
-      "Diagnosed and resolved performance bottlenecks across both client-side rendering cycles and backend database queries.",
-      "Collaborated with product stakeholders to break down user requirements into technical architecture specifications, schemas, and API contracts.",
+      "Sales CRM Platform: Developed and maintained CRM modules for lead management, deal tracking, automated invoicing, and reporting dashboards.",
+      "Security & Auth: Implemented JWT-based authentication and role-based access control (RBAC) to enforce strict enterprise security policies.",
+      "Frontend Architecture: Built reusable React component libraries that dramatically enhanced UI maintainability and team development velocity.",
+      "Accounting & Payments: Developed an accounting and financial management platform using Django REST Framework, integrating Node.js and Express.js payment-related services in Docker environments.",
+      "HRMS Platform: Created HRMS modules covering employee onboarding, attendance, and organizational reporting with AWS S3 cloud document storage integration.",
+      "WordPress Solutions: Developed and customized WordPress websites using Elementor, tailoring responsive UI with HTML/CSS and optimizing SEO and accessibility.",
     ],
-    technologies: ["React", "Python", "Django", "Node.js", "MySQL", "JavaScript", "TypeScript", "REST APIs", "Git"],
+    technologies: [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MySQL",
+      "AWS (S3, EC2)",
+      "Docker",
+      "JWT",
+      "RBAC",
+      "WordPress",
+    ],
   },
   {
-    id: "engineering-education",
-    role: "Bachelor of Engineering (B.E.)",
-    company: "University / Engineering Institute",
+    id: "scope-india",
+    role: "Full Stack Developer Intern",
+    company: "Scope India",
+    companyUrl: "https://linkedin.com/in/kavinretra",
+    location: "Tamil Nadu, India",
+    period: "April 2023 — March 2024",
+    current: false,
+    type: "Internship",
+    summary:
+      "Built full-stack web applications and educational portals, working across frontend UI design, backend CRUD services, and application deployment.",
+    responsibilities: [
+      "Developed a responsive educational website delivering intuitive frontend navigation and reliable backend data processing.",
+      "Implemented full CRUD operations for managing educational records, courses, and application data.",
+      "Constructed clean, responsive user interfaces and seamlessly integrated backend REST services.",
+      "Participated actively across the entire software development lifecycle (SDLC), including feature development, testing, debugging, and deployment.",
+    ],
+    technologies: ["React.js", "JavaScript", "HTML5", "CSS3", "REST APIs", "Node.js", "MySQL", "Git"],
+  },
+  {
+    id: "amrita-engineering",
+    role: "Bachelor of Engineering (B.E.) — Electronics & Communication Engineering",
+    company: "Amrita College of Engineering and Technology, Anna University",
     location: "Tamil Nadu, India",
     period: "2019 — 2023",
     current: false,
     type: "Education",
     summary:
-      "Foundational computer science education with rigorous coursework in Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, and Object-Oriented Software Engineering.",
+      "Graduated with 76%. Rigorous engineering foundation in digital systems, programming, communication networks, and software engineering methodologies.",
     responsibilities: [
-      "Built capstone full-stack web applications utilizing Python and relational databases.",
-      "Deep study of Relational Database Theory, Normalization forms (1NF through BCNF), and SQL query execution.",
-      "Active participant in technical code symposiums and collaborative hackathons.",
+      "Academic Score: 76% aggregate.",
+      "Coursework in Object-Oriented Programming, C, C++, Data Structures, Database Design, and Digital Signal Processing.",
+      "Hands-on project work in optical communication system design and simulation using OptiSystem software.",
     ],
-    technologies: ["Data Structures", "Algorithms", "DBMS", "SQL", "Python", "Object-Oriented Programming"],
+    technologies: ["C", "C++", "Database Design", "Software Engineering", "OptiSystem", "Digital Systems"],
   },
 ];

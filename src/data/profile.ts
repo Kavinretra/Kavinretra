@@ -4,13 +4,14 @@ export interface Profile {
   headline: string;
   bio: string;
   location: string;
+  phone: string;
   status: {
     available: boolean;
     text: string;
   };
   socials: {
     github: string;
-    linkedin?: string;
+    linkedin: string;
     email: string;
   };
   stats: {
@@ -18,17 +19,24 @@ export interface Profile {
     value: string;
     description: string;
   }[];
+  languages: string[];
+  certifications: {
+    title: string;
+    issuer: string;
+    year: string;
+  }[];
 }
 
 export const profile: Profile = {
-  name: "Kavin Retra",
-  role: "Full-Stack Software Engineer",
-  headline: "Architecting end-to-end web applications with Python, Django, Node.js, and React.",
-  bio: "Full-Stack Developer with 1–2 years of hands-on experience engineering scalable web systems. Passionate about product engineering, resilient database schemas, clean REST APIs, and responsive frontend experiences that solve real problems.",
-  location: "Nagercoil, India (Open to Remote & Global Relocation)",
+  name: "Kavin Retra S N",
+  role: "Software Engineer | Full Stack Developer",
+  headline: "Building enterprise web platforms & intelligent AI agent workflows with Django, React, Node.js, and AWS.",
+  bio: "Full Stack Software Engineer with 2+ years of experience developing enterprise business applications (CRM, HRMS, Accounting) using Python, Django, Django REST Framework, React.js, and Node.js. Skilled in AI agent orchestration, tool calling, prompt engineering, relational database design (MySQL, PostgreSQL), and cloud deployment using Docker and AWS.",
+  location: "Kanyakumari, Tamil Nadu, India",
+  phone: "+91-9150620059",
   status: {
     available: true,
-    text: "Open to Full-Stack & Backend Product Roles",
+    text: "Open to Full-Stack, Backend & AI Engineering Roles",
   },
   socials: {
     github: "https://github.com/Kavinretra",
@@ -37,24 +45,47 @@ export const profile: Profile = {
   },
   stats: [
     {
-      value: "1–2+",
+      value: "2+",
       label: "Years Experience",
-      description: "Shipping production full-stack features end-to-end",
+      description: "Developing enterprise business applications & web solutions",
     },
     {
       value: "4+",
-      label: "Core Stack Pillars",
-      description: "React, Python/Django, Node.js, and MySQL",
+      label: "Enterprise Platforms",
+      description: "Sales CRM, Accounting & Payments, HRMS, and Web portals",
     },
     {
-      value: "< 100ms",
-      label: "API Target Latency",
-      description: "Focused on query optimization & schema indexing",
+      value: "AWS & Docker",
+      label: "Cloud & DevOps",
+      description: "S3 document storage, EC2 instances, and containerization",
     },
     {
-      value: "100%",
-      label: "Commitment to Craft",
-      description: "Clean architectures, testable code & system design",
+      value: "AI & Agents",
+      label: "Intelligent Workflows",
+      description: "Agent orchestration, function calling & LLM integration",
+    },
+  ],
+  languages: ["English", "Tamil", "Malayalam"],
+  certifications: [
+    {
+      title: "AWS for Data Science",
+      issuer: "Simplilearn",
+      year: "2025",
+    },
+    {
+      title: "Generative AI for Beginners",
+      issuer: "Simplilearn SkillUp",
+      year: "2025",
+    },
+    {
+      title: "Microsoft Power BI Data Analyst",
+      issuer: "Atos Prayas Foundation",
+      year: "Certified",
+    },
+    {
+      title: "Optical Communication System Design",
+      issuer: "OptiSystem Simulation Software",
+      year: "Certified",
     },
   ],
 };
