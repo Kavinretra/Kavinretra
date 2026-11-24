@@ -71,8 +71,8 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           ))}
         </nav>
 
-        {/* Right CTA cluster */}
-        <div className="hidden sm:flex items-center gap-2.5">
+        {/* Right CTA cluster (Desktop) */}
+        <div className="hidden md:flex items-center gap-2.5">
           {/* Command Palette Trigger */}
           <button
             onClick={onOpenCommandPalette}
@@ -95,7 +95,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
             <GithubIcon className="h-4 w-4" />
           </a>
 
-          {/* Contact / Resume CTA */}
+          {/* Contact CTA */}
           <Button
             size="sm"
             variant="primary"
@@ -108,11 +108,21 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           </Button>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="flex sm:hidden items-center gap-2">
+        {/* Mobile menu button (Screens < 768px) */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={onOpenCommandPalette}
+            type="button"
+            className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50"
+            title="Open Command Menu"
+            aria-label="Command Menu"
+          >
+            <Terminal className="h-4 w-4 text-emerald-400" />
+          </button>
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50"
+            className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50 min-h-[38px] min-w-[38px] flex items-center justify-center"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? (
@@ -126,39 +136,40 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
 
       {/* Mobile dropdown */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-zinc-800 bg-zinc-950/95 px-6 py-5 backdrop-blur-xl">
-          <div className="flex flex-col space-y-3">
+        <div className="md:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl animate-in slide-in-from-top-2 duration-150">
+          <div className="flex flex-col space-y-1.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium text-zinc-300 hover:text-emerald-400 transition-colors py-1"
+                className="text-base font-medium text-zinc-200 hover:text-emerald-400 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 border-t border-zinc-800 flex items-center justify-between">
+            <div className="pt-4 mt-2 border-t border-zinc-800/80 flex items-center justify-between px-3">
               <a
                 href={profile.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-100"
+                className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white py-1"
               >
                 <GithubIcon className="h-4 w-4" />
-                GitHub
+                <span>GitHub</span>
                 <ArrowUpRight className="h-3 w-3" />
               </a>
-              <button
+              <Button
+                size="sm"
+                variant="primary"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenCommandPalette?.();
+                  const el = document.getElementById("contact");
+                  el?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex items-center gap-1.5 text-xs text-emerald-400"
               >
-                <Terminal className="h-3.5 w-3.5" />
-                Command Menu
-              </button>
+                Get in Touch
+              </Button>
             </div>
           </div>
         </div>

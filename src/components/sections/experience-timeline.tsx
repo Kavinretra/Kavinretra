@@ -26,7 +26,7 @@ export function ExperienceTimeline() {
           {experiences.map((item: ExperienceItem) => (
             <div key={item.id} className="relative group">
               {/* Timeline marker node */}
-              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 border border-zinc-700 text-emerald-400 group-hover:border-emerald-500 group-hover:scale-110 transition-all">
+              <div className="absolute -left-[38px] sm:-left-[46px] top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 border border-zinc-700 text-emerald-400 group-hover:border-emerald-500 group-hover:scale-110 transition-all">
                 {item.type === "Education" ? (
                   <GraduationCap className="h-3.5 w-3.5" />
                 ) : (
@@ -35,7 +35,7 @@ export function ExperienceTimeline() {
               </div>
 
               {/* Card Container */}
-              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 sm:p-7 backdrop-blur-sm hover:border-zinc-700/80 transition-all duration-200">
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-7 backdrop-blur-sm hover:border-zinc-700/80 transition-all duration-200">
                 {/* Meta details */}
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex flex-wrap items-center gap-3">

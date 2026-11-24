@@ -49,7 +49,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
 
             {/* Main Headline */}
             <div className="space-y-3 pt-1">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
                 Full-Stack Engineer crafting{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">
                   enterprise systems
@@ -57,7 +57,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 &amp; AI workflows.
               </h1>
 
-              <p className="text-base sm:text-lg text-zinc-300 leading-relaxed font-normal pt-2">
+              <p className="text-sm sm:text-lg text-zinc-300 leading-relaxed font-normal pt-1 sm:pt-2">
                 Hi, I&apos;m <span className="font-semibold text-white">{profile.name}</span>. Full-Stack Developer with 2+ years of experience engineering scalable business platforms (CRM, HRMS, Accounting) and AI agent workflows using{" "}
                 <span className="text-zinc-100 font-medium">Python &amp; Django</span>,{" "}
                 <span className="text-zinc-100 font-medium">React.js</span>,{" "}

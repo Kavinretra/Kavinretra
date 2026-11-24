@@ -121,7 +121,7 @@ export function ContactSection() {
           </div>
 
           {/* Right Column: Interactive Form */}
-          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/40 p-6 sm:p-8 backdrop-blur-md">
+          <div className="rounded-3xl border border-zinc-800/90 bg-zinc-900/40 p-5 sm:p-8 backdrop-blur-md">
             {submitted ? (
               <div className="py-12 text-center space-y-4">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-400">

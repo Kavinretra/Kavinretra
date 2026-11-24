@@ -77,7 +77,7 @@ export function About() {
             return (
               <div
                 key={pillar.title}
-                className="group relative rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7 backdrop-blur-sm hover:border-zinc-700/80 hover:bg-zinc-900/60 transition-all duration-300"
+                className="group relative rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-7 backdrop-blur-sm hover:border-zinc-700/80 hover:bg-zinc-900/60 transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-zinc-800/90 border border-zinc-700 text-emerald-400 group-hover:scale-105 group-hover:border-emerald-500/50 transition-all">

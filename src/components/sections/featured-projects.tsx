@@ -50,7 +50,7 @@ export function FeaturedProjects() {
               key={project.id}
               className="rounded-3xl border border-zinc-800/90 bg-zinc-900/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-zinc-700/80 hover:bg-zinc-900/50"
             >
-              <div className="p-6 sm:p-8 lg:p-10">
+              <div className="p-5 sm:p-8 lg:p-10">
                 {/* Header Row: Category, Index, Title, Links */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-zinc-800/80">
                   <div className="flex items-center gap-3">
