@@ -1,137 +1,121 @@
-# Kavin Retra S N — Software Engineer & Full Stack Developer
+<div align="center">
 
-<p align="center">
-  <a href="https://kavin-portfolio-amber.vercel.app/">
-    <img src="https://img.shields.io/badge/Live_Site-kavin--portfolio--amber.vercel.app-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
-  </a>
-</p>
+# Hi there, I'm Kavin Retra S N 👋
+### Software Engineer | Full Stack Developer
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16%20(App%20Router)-black?style=flat&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19-blue?style=flat&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/TailwindCSS-v4-38bdf8?style=flat&logo=tailwindcss" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Django-REST%20Framework-092E20?style=flat&logo=django&logoColor=white" alt="Django" />
-  <img src="https://img.shields.io/badge/AI%20Agents-LLM%20Workflows-amber?style=flat" alt="AI Agents" />
-  <img src="https://img.shields.io/badge/AWS-S3%20%7C%20EC2-FF9900?style=flat&logo=amazon-aws&logoColor=white" alt="AWS" />
-  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/License-MIT-emerald" alt="License" />
-</p>
+[![Visit Live Portfolio](https://img.shields.io/badge/🌐_Live_Portfolio-kavin--portfolio--amber.vercel.app-10b981?style=for-the-badge)](https://kavin-portfolio-amber.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/kavinretra)
+[![Email](https://img.shields.io/badge/Email-kavinretra91@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:kavinretra91@gmail.com)
+[![Location](https://img.shields.io/badge/Location-Tamil_Nadu,_India-zinc?style=for-the-badge&logo=google-maps&logoColor=white)](https://kavin-portfolio-amber.vercel.app/)
+
+</div>
 
 ---
 
-## 👨‍💻 About Kavin Retra S N
+### 👨‍💻 About Me
 
-**Full Stack Software Engineer** with 2+ years of hands-on experience building enterprise business applications (CRM, HRMS, Accounting) and intelligent **AI agent / LLM-powered automation workflows**. 
+I am a **Full Stack Software Engineer** with 2+ years of experience engineering scalable business platforms and **AI agent / LLM automation workflows**. 
 
-Skilled in end-to-end delivery: designing normalized relational schemas in **MySQL & PostgreSQL**, architecting secure RESTful API backends with **Django, DRF, and Node.js**, crafting snappy and accessible user interfaces with **React.js & Tailwind CSS**, and orchestrating AI workflows with tool calling and prompt engineering.
+Currently engineering enterprise CRM, HRMS, and financial management applications at **CoolGen Solutions**. Skilled in end-to-end delivery: from architecting normalized relational databases (**MySQL, PostgreSQL**) and robust RESTful backends (**Python, Django, Node.js**) to building responsive, accessible client interfaces (**React.js, Tailwind CSS**) and deploying cloud solutions (**AWS, Docker**).
 
-- **🌐 Live Portfolio:** [https://kavin-portfolio-amber.vercel.app/](https://kavin-portfolio-amber.vercel.app/)
-- **🐙 GitHub:** [github.com/Kavinretra](https://github.com/Kavinretra)
-- **💼 LinkedIn:** [linkedin.com/in/kavinretra](https://linkedin.com/in/kavinretra)
-- **📫 Email:** [kavinretra91@gmail.com](mailto:kavinretra91@gmail.com)
-- **📞 Phone:** [+91-9150620059](tel:+919150620059)
-- **📍 Location:** Kanyakumari, Tamil Nadu, India
+- 🚀 **Currently Building:** Enterprise business solutions & AI agentic orchestration pipelines.
+- 🎯 **Core Competencies:** React.js, Python, Django REST Framework, Node.js, MySQL, PostgreSQL, AWS S3/EC2, Docker, Agentic Workflows.
+- 💼 **Experience:** Software Engineer at **CoolGen Solutions** (2024–Present) • Prev. Intern at **Scope India** (2023–2024).
+- 🎓 **Education:** B.E. in Electronics & Communication Engineering — Anna University (76%).
 
 ---
 
-## ⚡ Key Highlights & Architecture
+### 🛠️ Technical Stack & Arsenal
 
-- **End-to-End Product Engineering:** Grounded in real-world enterprise architectures with concrete trade-offs, normalized database designs, and measured performance metrics.
-- **AI & Agentic Workflows:** Demonstrates autonomous agent loops, prompt engineering with guardrails, function calling schemas, and LLM-assisted automations.
-- **Interactive Command Palette (`Cmd + K` / `Ctrl + K`):** Rapid keyboard-driven navigation across projects, tech stacks, certifications, and direct actions.
-- **Architectural Topology Maps:** Collapsible ASCII topology diagrams illustrating decoupled client tiers, server handlers, cache layers, and relational storage.
-- **100% Mobile Responsive:** Optimized for all screen sizes (360px up to 4K), featuring an animated glassmorphic mobile navigation drawer, isolated swipeable code diagrams, and 44px+ touch targets.
-- **Type-Safe Content Architecture:** Centralized TypeScript schemas (`src/data/`) for zero-maintenance updates to profile, projects, and career milestones.
-- **Instant Client Delight:** Interactive contact form with real-time feedback, celebratory confetti, and one-click clipboard copying.
+<div align="center">
 
----
+#### Languages & Runtimes
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
-## 🛠️ Technical Arsenal
+#### Backend & APIs
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![Django REST](https://img.shields.io/badge/Django_REST_Framework-A30000?style=for-the-badge&logo=django&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![REST API](https://img.shields.io/badge/REST_APIs-005571?style=for-the-badge&logo=postman&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT_Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 
-| Category | Technologies |
-| :--- | :--- |
-| **Backend & APIs** | Python, Django, Django REST Framework (DRF), Node.js, Express.js, REST API Development, JWT Authentication, Role-Based Access Control (RBAC), C, C++ |
-| **AI & Agents** | AI Agents, Agentic Workflows, LLM Integration, Prompt Engineering, Tool Calling & Function Orchestration, AI-Assisted Automation |
-| **Frontend & UI** | React.js, Next.js 16 (App Router), TypeScript, Tailwind CSS v4, JavaScript (ES6+), HTML5, CSS3, Bootstrap, Vite, jQuery |
-| **Databases & Storage** | MySQL (3NF Normalization, Indexing, ACID), PostgreSQL, Database Design, Relational Constraints |
-| **Cloud & DevOps** | AWS (S3 Document Storage, EC2 Instances), Docker, Linux, Shell Scripting, Git, GitHub CI/CD, Vercel |
-| **CMS & Platforms** | WordPress, Elementor, Postman, Swagger |
+#### Frontend & UI
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 
----
+#### Databases & Cloud
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=for-the-badge&logo=amazon-s3&logoColor=white)
+![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?style=for-the-badge&logo=amazon-ec2&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
-## 💼 Featured Enterprise Projects
-
-### 1. Enterprise Sales CRM Platform
-* **Company:** CoolGen Solutions
-* **Stack:** React.js, Python, Django, Django REST Framework, MySQL, JWT, RBAC
-* **Highlights:** Modules for lead management, deal pipelines, automated invoice generation, and real-time revenue analytics dashboards. Custom permission classes combined with JWT claims ensure strict data protection.
-
-### 2. Accounting & Financial Management Platform
-* **Company:** CoolGen Solutions
-* **Stack:** Django, Django REST Framework, Node.js, Express.js, React.js, MySQL, Docker
-* **Highlights:** Hybrid backend architecture handling core ledger accounting in Django while payment-related gateway integrations run on high-throughput Node.js microservices, fully containerized in Docker.
-
-### 3. Employee Management System (HRMS)
-* **Company:** CoolGen Solutions
-* **Stack:** React.js, Python, Django, AWS S3, MySQL, Hierarchical RBAC
-* **Highlights:** Employee onboarding, attendance tracking, and organizational reporting. Integrated secure AWS S3 cloud storage for sensitive employee document uploads via pre-signed URLs.
-
-### 4. AI Agent & LLM Automation Workflows
-* **Category:** AI & Automation
-* **Stack:** Python, AI Agents, LLM Integration, Prompt Engineering, Tool Calling, REST APIs
-* **Highlights:** Multi-step autonomous task execution pipelines using strict function calling schemas, prompt engineering guardrails, and automated API dispatching.
+</div>
 
 ---
 
-## 📁 Repository Structure
+### 💼 Production Experience & Projects
 
-```
-Kavinretra/
-├── public/
-│   ├── images/
-│   │   └── kavin.jpg          # Professional portrait (optimized)
-│   └── favicon.ico
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx         # Root layout, fonts & OpenGraph metadata
-│   │   ├── page.tsx           # Main homepage assembly
-│   │   └── globals.css        # Tailwind directives, theme tokens & glow animations
-│   ├── components/
-│   │   ├── common/
-│   │   │   └── command-palette.tsx   # Cmd + K interactive launcher
-│   │   ├── layout/
-│   │   │   ├── navbar.tsx     # Responsive glassmorphic navbar with mobile drawer
-│   │   │   └── footer.tsx     # Clean status & social footer
-│   │   ├── sections/
-│   │   │   ├── hero.tsx       # 2-Column split hero with photo card & stack pills
-│   │   │   ├── about.tsx      # 4 Engineering pillars (Schema, APIs, React, Product)
-│   │   │   ├── featured-projects.tsx # Case studies with ASCII topology & metrics
-│   │   │   ├── skills-grid.tsx       # Categorized toolkit (AI, Backend, Frontend, Cloud)
-│   │   │   ├── experience-timeline.tsx # Career history, Education & Certifications
-│   │   │   └── contact-section.tsx   # Contact form with confetti & phone/email cards
-│   │   └── ui/                # Reusable badge, button, card, and custom SVG icons
-│   ├── data/
-│   │   ├── profile.ts         # Personal bio, photo, location, phone, certifications
-│   │   ├── projects.ts        # Case study schemas, architecture specs & metrics
-│   │   ├── skills.ts          # Technical skill items & production context notes
-│   │   └── experience.ts      # CoolGen Solutions, Scope India & Education history
-│   └── lib/
-│       └── utils.ts           # Class merge utility (cn)
-├── package.json
-└── tsconfig.json
-```
+#### 1. Sales CRM Platform
+* **Role:** Software Engineer @ CoolGen Solutions
+* **Stack:** React.js, Python, Django REST Framework, MySQL, JWT, RBAC
+* Developed enterprise CRM modules for lead management, deal tracking pipelines, automated invoicing, and interactive reporting dashboards.
+* Implemented role-based access control (RBAC) and JWT authentication to protect financial and sales records.
+
+#### 2. Accounting & Financial Management Platform
+* **Role:** Software Engineer @ CoolGen Solutions
+* **Stack:** Django, Django REST, Node.js, Express.js, React.js, MySQL, Docker
+* Built financial accounting microservices using Django REST and integrated Node.js/Express payment gateways with full Docker containerization.
+* Structured normalized MySQL relational tables for transaction auditing and balance ledgering.
+
+#### 3. Employee Management System (HRMS)
+* **Role:** Software Engineer @ CoolGen Solutions
+* **Stack:** React.js, Python, Django, AWS S3, MySQL, Role-Based Access Control
+* Engineered HRMS modules for employee onboarding, attendance management, and organizational hierarchy workflows.
+* Integrated AWS S3 for secure, encrypted cloud document storage.
+
+#### 4. AI Agent & LLM Automation Workflows
+* **Domain:** AI Engineering & Automation
+* **Stack:** Python, LLM Integration, Prompt Engineering, Tool Calling & Function Orchestration
+* Designed agentic workflows with multi-step reasoning, strict schema validation, and tool execution pipelines.
 
 ---
 
-## 🚀 Local Development
+### 📜 Certifications
 
-### 1. Prerequisites
-- Node.js `v18.17+` or `v20+` (tested on Node v24)
-- npm `v9+` or `v10+`
+* **AWS for Data Science** — Simplilearn
+* **Generative AI for Beginners** — Simplilearn SkillUp
+* **Microsoft Power BI Data Analyst** — Atos Prayas Foundation
+* **Optical Communication System Design** — OptiSystem Simulation Software
 
-### 2. Setup
+---
+
+### 📬 Get In Touch
+
+* **Portfolio Website:** [kavin-portfolio-amber.vercel.app](https://kavin-portfolio-amber.vercel.app/)
+* **LinkedIn:** [linkedin.com/in/kavinretra](https://linkedin.com/in/kavinretra)
+* **Email:** [kavinretra91@gmail.com](mailto:kavinretra91@gmail.com)
+* **Phone:** [+91-9150620059](tel:+919150620059)
+
+---
+
+<details>
+<summary>🛠️ <b>Portfolio Source Code & Local Setup Instructions</b></summary>
+
+<br />
+
+This repository powers my live portfolio at [kavin-portfolio-amber.vercel.app](https://kavin-portfolio-amber.vercel.app/). Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
+
 ```bash
 # Clone the repository
 git clone https://github.com/Kavinretra/Kavinretra.git
@@ -140,31 +124,10 @@ cd Kavinretra
 # Install dependencies
 npm install
 
-# Run local development server
+# Start local dev server
 npm run dev
 ```
 
-Visit **[http://localhost:3000](http://localhost:3000)** in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view locally.
 
-### 3. Production Build
-```bash
-npm run build
-npm run start
-```
-
----
-
-## ✏️ Customizing Content
-
-All data is separated into type-safe modules inside `src/data/`:
-* **Personal & Contact Info:** Update `src/data/profile.ts`
-* **Projects & Case Studies:** Edit `src/data/projects.ts`
-* **Skills & Tools:** Adjust `src/data/skills.ts`
-* **Work Experience & Education:** Update `src/data/experience.ts`
-
-Any edits to these files are automatically reflected across the entire site without modifying any UI components.
-
----
-
-## 📄 License
-MIT © [Kavin Retra S N](https://github.com/Kavinretra)
+</details>
