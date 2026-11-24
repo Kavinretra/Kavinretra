@@ -3,8 +3,10 @@ export interface Profile {
   role: string;
   headline: string;
   bio: string;
+  avatar: string;
   location: string;
   phone: string;
+  siteUrl: string;
   status: {
     available: boolean;
     text: string;
@@ -32,8 +34,10 @@ export const profile: Profile = {
   role: "Software Engineer | Full Stack Developer",
   headline: "Building enterprise web platforms & intelligent AI agent workflows with Django, React, Node.js, and AWS.",
   bio: "Full Stack Software Engineer with 2+ years of experience developing enterprise business applications (CRM, HRMS, Accounting) using Python, Django, Django REST Framework, React.js, and Node.js. Skilled in AI agent orchestration, tool calling, prompt engineering, relational database design (MySQL, PostgreSQL), and cloud deployment using Docker and AWS.",
+  avatar: "/images/kavin.jpg",
   location: "Kanyakumari, Tamil Nadu, India",
   phone: "+91-9150620059",
+  siteUrl: "https://kavin-portfolio-amber.vercel.app",
   status: {
     available: true,
     text: "Open to Full-Stack, Backend & AI Engineering Roles",

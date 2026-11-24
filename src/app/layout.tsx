@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kavin-portfolio-amber.vercel.app"),
   title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
   description:
     "Full Stack Software Engineer with 2+ years of experience developing enterprise applications (CRM, HRMS, Accounting) and AI agent workflows using Python, Django, React.js, Node.js, MySQL, and AWS.",
@@ -38,16 +39,25 @@ export const metadata: Metadata = {
     title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
     description:
       "Full Stack Software Engineer developing enterprise business applications and AI agent workflows with Django, React, Node.js, and AWS.",
-    url: "https://github.com/Kavinretra",
+    url: "https://kavin-portfolio-amber.vercel.app",
     siteName: "Kavin Retra Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/kavin.jpg",
+        width: 800,
+        height: 1067,
+        alt: "Kavin Retra S N - Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kavin Retra S N | Software Engineer & Full Stack Developer",
     description:
       "Full Stack Software Engineer developing enterprise business applications and AI agent workflows with Django, React, Node.js, and AWS.",
+    images: ["/images/kavin.jpg"],
   },
 };
 
