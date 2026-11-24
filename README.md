@@ -88,7 +88,7 @@ Skilled in end-to-end delivery: designing normalized relational schemas in **MyS
 ## 📁 Repository Structure
 
 ```
-kavin_portfolio/
+Kavinretra/
 ├── public/
 │   ├── images/
 │   │   └── kavin.jpg          # Professional portrait (optimized)
@@ -134,8 +134,8 @@ kavin_portfolio/
 ### 2. Setup
 ```bash
 # Clone the repository
-git clone https://github.com/Kavinretra/kavin_portfolio.git
-cd kavin_portfolio
+git clone https://github.com/Kavinretra/Kavinretra.git
+cd Kavinretra
 
 # Install dependencies
 npm install
