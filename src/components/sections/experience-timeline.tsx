@@ -15,7 +15,7 @@ import { Reveal } from "@/components/common/reveal";
 
 export function ExperienceTimeline() {
   return (
-    <section id="experience" className="py-20 md:py-28 border-t border-zinc-800/80 relative">
+    <section id="experience" className="scroll-mt-20 py-20 md:py-28 border-t border-zinc-800/80 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
         <Reveal className="max-w-2xl mb-14">

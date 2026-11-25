@@ -106,7 +106,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 border-t border-zinc-800/80 relative">
+    <section id="contact" className="scroll-mt-20 py-20 md:py-28 border-t border-zinc-800/80 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column: Direct info & links */}

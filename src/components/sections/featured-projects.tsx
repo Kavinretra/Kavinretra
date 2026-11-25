@@ -40,7 +40,7 @@ export function FeaturedProjects() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="work" className="py-20 md:py-28 border-t border-zinc-800/80 relative">
+    <section id="work" className="scroll-mt-20 py-20 md:py-28 border-t border-zinc-800/80 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
         <Reveal className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">

@@ -59,20 +59,20 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const items: CommandItem[] = useMemo(
     () => [
       {
-        id: "nav-work",
-        type: "navigation",
-        label: "View Featured Work & Case Studies",
-        category: "Sections",
-        action: () => navigateTo("work"),
-        icon: Code2,
-      },
-      {
         id: "nav-systems",
         type: "navigation",
         label: "Architecture & AI Engineering Approach",
         category: "Sections",
         action: () => navigateTo("systems"),
         icon: Server,
+      },
+      {
+        id: "nav-work",
+        type: "navigation",
+        label: "View Featured Work & Case Studies",
+        category: "Sections",
+        action: () => navigateTo("work"),
+        icon: Code2,
       },
       {
         id: "nav-skills",

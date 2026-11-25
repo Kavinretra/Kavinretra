@@ -14,8 +14,8 @@ interface NavbarProps {
 }
 
 const NAV_LINKS = [
-  { href: "#work", id: "work", label: "Work" },
   { href: "#systems", id: "systems", label: "Architecture" },
+  { href: "#work", id: "work", label: "Work" },
   { href: "#skills", id: "skills", label: "Tech Stack" },
   { href: "#experience", id: "experience", label: "Experience" },
   { href: "#contact", id: "contact", label: "Contact" },
@@ -88,19 +88,19 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-zinc-950/85 backdrop-blur-md border-b border-zinc-800/80 py-3 shadow-lg shadow-black/20"
-          : "bg-transparent py-5"
+          : "bg-transparent py-4"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand / Logo */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-4">
+        {/* Left: Brand / Logo */}
         <Link
           href="/"
-          className="group flex items-center gap-2.5 text-zinc-100 font-medium tracking-tight"
+          className="group inline-flex items-center gap-2.5 text-zinc-100 font-medium tracking-tight justify-self-start shrink-0 whitespace-nowrap"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-800 border border-zinc-700/80 text-emerald-400 font-mono text-xs font-bold group-hover:border-emerald-500/50 group-hover:bg-emerald-950/30 transition-all">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800 border border-zinc-700/80 text-emerald-400 font-mono text-xs font-bold group-hover:border-emerald-500/50 group-hover:bg-emerald-950/30 transition-all shrink-0">
             KR
           </span>
-          <div className="flex flex-col">
+          <div className="flex flex-col leading-tight">
             <span className="text-sm font-semibold tracking-tight text-zinc-100 group-hover:text-emerald-400 transition-colors">
               {profile.name}
             </span>
@@ -110,10 +110,10 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links with animated active indicator */}
+        {/* Center: Desktop Navigation Links */}
         <nav
           aria-label="Primary navigation"
-          className="hidden md:flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/60 px-3 py-1.5 backdrop-blur-md"
+          className="hidden lg:flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/70 p-1 backdrop-blur-md justify-self-center"
         >
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.id;
@@ -123,7 +123,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
                 href={link.href}
                 onClick={(e) => handleSectionClick(e, link.id)}
                 aria-current={isActive ? "location" : undefined}
-                className={`relative px-3 py-1 text-xs font-medium transition-colors rounded-full ${
+                className={`relative z-0 inline-flex items-center justify-center whitespace-nowrap px-3.5 py-1.5 text-xs font-medium transition-colors rounded-full ${
                   isActive
                     ? "text-emerald-300"
                     : "text-zinc-400 hover:text-zinc-100"
@@ -142,56 +142,53 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           })}
         </nav>
 
-        {/* Right CTA cluster (Desktop) */}
-        <div className="hidden md:flex items-center gap-2">
-          {/* Command Palette Trigger */}
+        {/* Right: Desktop CTA cluster */}
+        <div className="hidden lg:flex items-center gap-2 justify-self-end shrink-0">
           <button
             onClick={onOpenCommandPalette}
             type="button"
-            className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-all cursor-pointer"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-all cursor-pointer whitespace-nowrap"
             title="Open Command Palette (Cmd + K / Ctrl + K)"
           >
-            <Terminal className="h-3.5 w-3.5 text-emerald-400" />
-            <span className="font-mono text-[11px] text-zinc-500">Cmd + K</span>
+            <Terminal className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+            <span className="font-mono text-[11px] text-zinc-400">Cmd + K</span>
           </button>
 
-          {/* Resume Link */}
           <Link
             href="/resume"
-            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 text-xs font-mono text-zinc-300 hover:border-emerald-500/40 hover:text-emerald-300 transition-all"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 text-xs font-mono text-zinc-300 hover:border-emerald-500/40 hover:text-emerald-300 transition-all whitespace-nowrap"
             title="View & Print Resume"
           >
-            <FileText className="h-3.5 w-3.5 text-emerald-400" />
+            <FileText className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
             <span>Resume</span>
           </Link>
 
-          {/* GitHub link */}
           <a
             href={profile.socials.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60 border border-transparent hover:border-zinc-800"
+            className="inline-flex h-9 w-9 items-center justify-center text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60 border border-transparent hover:border-zinc-800 shrink-0"
             aria-label="GitHub Profile"
           >
             <GithubIcon className="h-4 w-4" />
           </a>
 
-          {/* Contact CTA */}
           <Button
             size="sm"
             variant="primary"
+            className="h-9 px-3.5 whitespace-nowrap"
             onClick={() => scrollToTarget("contact")}
           >
             Let&apos;s Talk
           </Button>
         </div>
 
-        {/* Mobile menu button (Screens < 768px) */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Mobile & Tablet menu buttons (Screens < 1024px) */}
+        <div className="flex lg:hidden items-center gap-2 shrink-0">
           <button
             onClick={onOpenCommandPalette}
             type="button"
-            className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50"
+            className="inline-flex h-9 w-9 items-center justify-center text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50"
             title="Open Command Menu"
             aria-label="Command Menu"
           >
@@ -201,7 +198,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50 min-h-[38px] min-w-[38px] flex items-center justify-center"
+            className="inline-flex h-9 w-9 items-center justify-center text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50"
             aria-label="Toggle Navigation Menu"
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-drawer"
@@ -215,7 +212,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile / Tablet dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -224,19 +221,26 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="md:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl"
+            className="lg:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl"
           >
-            <div className="flex flex-col space-y-1.5">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleSectionClick(e, link.id)}
-                  className="text-base font-medium text-zinc-200 hover:text-emerald-400 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className="max-w-6xl mx-auto flex flex-col space-y-1.5">
+              {NAV_LINKS.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleSectionClick(e, link.id)}
+                    className={`text-base font-medium transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900 ${
+                      isActive
+                        ? "text-emerald-400 bg-emerald-500/10"
+                        : "text-zinc-200 hover:text-emerald-400"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
