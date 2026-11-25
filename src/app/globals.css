@@ -32,6 +32,24 @@ html {
   color-scheme: dark;
 }
 
+/* Prevent native smooth scroll from conflicting with Lenis RAF scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -70,7 +88,7 @@ body {
   background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
 }
 
-/* Ambient glow orb animation */
+/* Ambient glow & floating animations */
 @keyframes pulse-slow {
   0%, 100% {
     opacity: 0.35;
@@ -82,8 +100,21 @@ body {
   }
 }
 
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 .animate-pulse-slow {
   animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
 }
 
 @media print {
@@ -97,7 +128,8 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .animate-pulse-slow {
+  .animate-pulse-slow,
+  .animate-float-slow {
     animation: none;
   }
 }

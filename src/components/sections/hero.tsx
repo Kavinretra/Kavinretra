@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Mail,
@@ -19,14 +20,16 @@ import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 import { useCommandPalette } from "@/components/common/portfolio-shell";
+import { StaggerContainer, StaggerItem } from "@/components/common/reveal";
 
 interface HeroProps {
   onOpenCommandPalette?: () => void;
 }
 
 export function Hero({ onOpenCommandPalette }: HeroProps) {
-  const { openCommandPalette } = useCommandPalette();
+  const { openCommandPalette, scrollToTarget } = useCommandPalette();
   const handleOpenPalette = onOpenCommandPalette ?? openCommandPalette;
+
   const corePillars = [
     { label: "React.js", category: "Frontend", icon: Code2, color: "text-cyan-400" },
     { label: "Python & Django", category: "Backend", icon: Server, color: "text-emerald-400" },
@@ -35,11 +38,13 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
     { label: "MySQL & AWS", category: "Cloud & Data", icon: Cloud, color: "text-sky-400" },
   ];
 
+  const ease = [0.22, 1, 0.36, 1] as const;
+
   return (
     <section className="relative pt-32 pb-20 md:pt-36 md:pb-28 overflow-hidden">
       {/* Ambient background glow orbs */}
       <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-emerald-500/10 rounded-full blur-[130px] pointer-events-none -z-10 animate-pulse-slow" />
-      <div className="absolute top-1/3 right-10 w-[350px] h-[300px] bg-sky-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-10 w-[350px] h-[300px] bg-sky-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Responsive Grid: Left info, Right photo */}
@@ -47,7 +52,12 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7 space-y-4">
             {/* Availability Status Badge */}
-            <div className="flex flex-wrap items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease }}
+              className="flex flex-wrap items-center gap-3"
+            >
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1 text-xs font-mono text-emerald-300 backdrop-blur-sm shadow-sm shadow-emerald-950/50">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -60,10 +70,15 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 <MapPin className="h-3 w-3" />
                 {profile.location}
               </span>
-            </div>
+            </motion.div>
 
             {/* Main Headline */}
-            <div className="space-y-3 pt-1">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.48, delay: 0.08, ease }}
+              className="space-y-3 pt-1"
+            >
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
                 Full-Stack Engineer crafting{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">
@@ -80,34 +95,43 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 <span className="text-zinc-100 font-medium">MySQL</span>, and{" "}
                 <span className="text-zinc-100 font-medium">AWS</span>.
               </p>
-            </div>
+            </motion.div>
 
             {/* Interactive Stack Pillars */}
-            <div className="pt-2 flex flex-wrap gap-2 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.16, ease }}
+              className="pt-2 flex flex-wrap gap-2 items-center"
+            >
               <span className="text-xs font-mono text-zinc-500 mr-1">Core Arsenal:</span>
               {corePillars.map((pill) => {
                 const Icon = pill.icon;
                 return (
-                  <div
+                  <motion.div
                     key={pill.label}
+                    whileHover={{ y: -2 }}
+                    transition={{ type: "spring", stiffness: 350, damping: 22 }}
                     className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 px-2.5 py-1 text-xs text-zinc-200 backdrop-blur-sm hover:border-zinc-700 transition-colors"
                   >
                     <Icon className={`h-3 w-3 ${pill.color}`} />
                     <span className="font-medium text-xs">{pill.label}</span>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* Action CTAs */}
-            <div className="pt-4 flex flex-wrap items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.24, ease }}
+              className="pt-4 flex flex-wrap items-center gap-3"
+            >
               <Button
                 size="md"
                 variant="primary"
-                onClick={() => {
-                  const el = document.getElementById("work");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => scrollToTarget("work")}
               >
                 Explore Work
                 <ArrowRight className="h-4 w-4" />
@@ -124,10 +148,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
               <Button
                 size="md"
                 variant="secondary"
-                onClick={() => {
-                  const el = document.getElementById("contact");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => scrollToTarget("contact")}
               >
                 <Mail className="h-4 w-4 text-emerald-400" />
                 Contact Me
@@ -162,12 +183,17 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 <Terminal className="h-3.5 w-3.5 text-emerald-400" />
                 <span>Cmd + K</span>
               </button>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: High-End Portrait Showcase (5 cols) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative group w-full max-w-[340px] sm:max-w-[360px]">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.14, ease }}
+            className="lg:col-span-5 flex justify-center lg:justify-end"
+          >
+            <div className="relative group w-full max-w-[340px] sm:max-w-[360px] animate-float-slow">
               {/* Vibrant ambient glow frame */}
               <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-500/25 via-teal-500/20 to-sky-500/25 rounded-3xl blur-lg opacity-70 group-hover:opacity-100 transition duration-700" />
 
@@ -192,7 +218,7 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                         {profile.name}
                       </div>
                       <div className="text-[11px] font-mono text-emerald-400 mt-0.5">
-                        Software Engineer • CoolGen
+                        Software Engineer &bull; CoolGen
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-800/50">
@@ -205,28 +231,34 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Engineering Metric Highlights */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-10 border-t border-zinc-800/80">
+        <StaggerContainer
+          stagger={0.07}
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-10 border-t border-zinc-800/80"
+        >
           {profile.stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-4 backdrop-blur-sm hover:border-zinc-700/60 transition-colors"
-            >
-              <div className="text-2xl sm:text-3xl font-bold font-mono text-white tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-xs font-semibold text-emerald-400 mt-1 uppercase tracking-wider font-mono">
-                {stat.label}
-              </div>
-              <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
-                {stat.description}
-              </p>
-            </div>
+            <StaggerItem key={idx}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ type: "spring", stiffness: 320, damping: 24 }}
+                className="h-full rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-4 backdrop-blur-sm hover:border-emerald-500/30 hover:bg-zinc-900/50 transition-colors"
+              >
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-white tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-xs font-semibold text-emerald-400 mt-1 uppercase tracking-wider font-mono">
+                  {stat.label}
+                </div>
+                <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
+                  {stat.description}
+                </p>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

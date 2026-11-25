@@ -7,6 +7,7 @@ import { GithubIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
+import { useCommandPalette } from "@/components/common/portfolio-shell";
 
 interface NavbarProps {
   onOpenCommandPalette?: () => void;
@@ -24,10 +25,14 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const { scrollToTarget } = useCommandPalette();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      if (window.scrollY < 160) {
+        setActiveSection("");
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -69,6 +74,15 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    scrollToTarget(id);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -96,7 +110,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links with animated active indicator */}
         <nav
           aria-label="Primary navigation"
           className="hidden md:flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/60 px-3 py-1.5 backdrop-blur-md"
@@ -104,18 +118,26 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.id;
             return (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleSectionClick(e, link.id)}
                 aria-current={isActive ? "location" : undefined}
-                className={`px-3 py-1 text-xs font-medium transition-colors rounded-full ${
+                className={`relative px-3 py-1 text-xs font-medium transition-colors rounded-full ${
                   isActive
-                    ? "bg-emerald-500/15 text-emerald-300"
-                    : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+                    ? "text-emerald-300"
+                    : "text-zinc-400 hover:text-zinc-100"
                 }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavSection"
+                    transition={{ type: "spring", stiffness: 360, damping: 30 }}
+                    className="absolute inset-0 rounded-full bg-emerald-500/15 border border-emerald-500/25 -z-10"
+                  />
+                )}
                 {link.label}
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -158,10 +180,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           <Button
             size="sm"
             variant="primary"
-            onClick={() => {
-              const el = document.getElementById("contact");
-              el?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => scrollToTarget("contact")}
           >
             Let&apos;s Talk
           </Button>
@@ -204,19 +223,19 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.16 }}
+            transition={{ duration: 0.18 }}
             className="md:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl"
           >
             <div className="flex flex-col space-y-1.5">
               {NAV_LINKS.map((link) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleSectionClick(e, link.id)}
                   className="text-base font-medium text-zinc-200 hover:text-emerald-400 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
               <Link
                 href="/resume"
@@ -242,8 +261,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
                   variant="primary"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    const el = document.getElementById("contact");
-                    el?.scrollIntoView({ behavior: "smooth" });
+                    scrollToTarget("contact");
                   }}
                 >
                   Get in Touch
