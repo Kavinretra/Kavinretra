@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Copy, Check, Send, MessageSquare, Terminal } from "lucide-react";
+import {
+  Copy,
+  Check,
+  Send,
+  MessageSquare,
+  Terminal,
+  AlertCircle,
+  ExternalLink,
+} from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
@@ -9,9 +17,15 @@ import confetti from "canvas-confetti";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    website: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(profile.socials.email);
@@ -19,13 +33,60 @@ export function ContactSection() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const buildMailtoHref = () => {
+    const subject = encodeURIComponent(
+      `Portfolio Inquiry from ${formData.name || "Visitor"}`
+    );
+    const body = encodeURIComponent(
+      `${formData.message}\n\n---\nFrom: ${formData.name} (${formData.email})`
+    );
+    return `mailto:${profile.socials.email}?subject=${subject}&body=${body}`;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setErrorMsg(null);
+
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (trimmedName.length < 2) {
+      setErrorMsg("Please enter your name (at least 2 characters).");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+
+    if (trimmedMessage.length < 10) {
+      setErrorMsg("Please enter a message of at least 10 characters.");
+      return;
+    }
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = (await response.json()) as {
+        ok?: boolean;
+        error?: string;
+      };
+
+      if (!response.ok || !data.ok) {
+        setErrorMsg(
+          data.error ||
+            "Could not send your message. Please use the direct email option."
+        );
+        return;
+      }
+
       setSubmitted(true);
       confetti({
         particleCount: 80,
@@ -33,7 +94,13 @@ export function ContactSection() {
         origin: { y: 0.7 },
         colors: ["#10b981", "#06b6d4", "#38bdf8"],
       });
-    }, 600);
+    } catch {
+      setErrorMsg(
+        "Network error while submitting the form. You can send directly via email below."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,7 +119,7 @@ export function ContactSection() {
             </h2>
 
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
-              I am actively looking for full-stack and backend software engineering opportunities where I can solve challenging problems, optimize database systems, and deliver high-quality products.
+              I am actively looking for full-stack, backend, and AI engineering opportunities where I can solve challenging problems, optimize database systems, and deliver high-quality products.
             </p>
 
             {/* Direct Email & Phone Cards */}
@@ -62,12 +129,16 @@ export function ContactSection() {
                   Direct Email
                 </span>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-xs text-zinc-100 font-semibold truncate select-all">
+                  <a
+                    href={`mailto:${profile.socials.email}`}
+                    className="font-mono text-xs text-zinc-100 font-semibold truncate hover:text-emerald-400 transition-colors"
+                  >
                     {profile.socials.email}
-                  </span>
+                  </a>
                   <button
                     onClick={copyEmail}
                     type="button"
+                    aria-label={copied ? "Email copied" : "Copy email address"}
                     className="flex items-center gap-1 rounded-md border border-zinc-700/80 bg-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-300 hover:text-white hover:border-emerald-500/50 transition-colors shrink-0"
                   >
                     {copied ? (
@@ -127,16 +198,16 @@ export function ContactSection() {
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-400">
                   <Check className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Message Received!</h3>
+                <h3 className="text-xl font-bold text-white">Message Sent!</h3>
                 <p className="text-sm text-zinc-400 max-w-sm mx-auto leading-relaxed">
-                  Thank you for reaching out, {formData.name}. I&apos;ll review your note and respond back to {formData.email} promptly.
+                  Thank you for reaching out, {formData.name}. Your message has been delivered and I&apos;ll reply to {formData.email} promptly.
                 </p>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({ name: "", email: "", message: "" });
+                    setFormData({ name: "", email: "", message: "", website: "" });
                   }}
                   className="mt-4"
                 >
@@ -144,10 +215,26 @@ export function ContactSection() {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
                   <MessageSquare className="h-3.5 w-3.5 text-emerald-400" />
                   <span>SEND A MESSAGE</span>
+                </div>
+
+                {/* Honeypot field for spam bots */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={(e) =>
+                      setFormData({ ...formData, website: e.target.value })
+                    }
+                  />
                 </div>
 
                 <div className="space-y-1.5">
@@ -194,6 +281,25 @@ export function ContactSection() {
                     className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-colors resize-none"
                   />
                 </div>
+
+                {errorMsg && (
+                  <div
+                    role="alert"
+                    className="rounded-xl border border-amber-500/40 bg-amber-950/30 p-3 text-xs text-amber-200 space-y-2"
+                  >
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                      <span>{errorMsg}</span>
+                    </div>
+                    <a
+                      href={buildMailtoHref()}
+                      className="inline-flex items-center gap-1.5 font-mono text-emerald-300 hover:text-emerald-200 underline underline-offset-4"
+                    >
+                      <span>Open pre-filled email in your mail app</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                )}
 
                 <Button
                   type="submit"

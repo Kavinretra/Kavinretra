@@ -22,6 +22,7 @@ export interface Profile {
     description: string;
   }[];
   languages: string[];
+  interests: string[];
   certifications: {
     title: string;
     issuer: string;
@@ -32,7 +33,8 @@ export interface Profile {
 export const profile: Profile = {
   name: "Kavin Retra S N",
   role: "Software Engineer | Full Stack Developer",
-  headline: "Building enterprise web platforms & intelligent AI agent workflows with Django, React, Node.js, and AWS.",
+  headline:
+    "Building enterprise web platforms & intelligent AI agent workflows with Django, React, Node.js, and AWS.",
   bio: "Full Stack Software Engineer with 2+ years of experience developing enterprise business applications (CRM, HRMS, Accounting) using Python, Django, Django REST Framework, React.js, and Node.js. Skilled in AI agent orchestration, tool calling, prompt engineering, relational database design (MySQL, PostgreSQL), and cloud deployment using Docker and AWS.",
   avatar: "/images/kavin.jpg",
   location: "Kanyakumari, Tamil Nadu, India",
@@ -70,11 +72,18 @@ export const profile: Profile = {
     },
   ],
   languages: ["English", "Tamil", "Malayalam"],
+  interests: [
+    "AI Agents & Agentic Workflows",
+    "Full Stack Development",
+    "Backend Engineering",
+    "UI/UX Design",
+    "Cloud Technologies",
+  ],
   certifications: [
     {
       title: "AWS for Data Science",
       issuer: "Simplilearn",
-      year: "2025",
+      year: "May 2025",
     },
     {
       title: "Generative AI for Beginners",
@@ -87,7 +96,7 @@ export const profile: Profile = {
       year: "Certified",
     },
     {
-      title: "Optical Communication System Design",
+      title: "Optical Communication System Design using OptiSystem Simulation Software",
       issuer: "OptiSystem Simulation Software",
       year: "Certified",
     },

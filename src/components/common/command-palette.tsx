@@ -1,8 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Search, Terminal, ArrowRight, Mail, Copy, Check, ExternalLink, Code2, Database, Server } from "lucide-react";
-import { GithubIcon } from "@/components/ui/icons";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Search,
+  Terminal,
+  ArrowRight,
+  Mail,
+  Copy,
+  Check,
+  Code2,
+  Database,
+  Server,
+  FileText,
+} from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 
@@ -11,31 +23,21 @@ interface CommandPaletteProps {
   onClose: () => void;
 }
 
+interface CommandItem {
+  id: string;
+  type: "navigation" | "project" | "action";
+  label: string;
+  category: string;
+  action: () => void;
+  icon: React.ElementType;
+}
+
 export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const [query, setQuery] = useState("");
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        if (isOpen) {
-          onClose();
-        } else {
-          // Open
-          setQuery("");
-        }
-      }
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const router = useRouter();
+  const listRef = useRef<HTMLDivElement>(null);
 
   const navigateTo = (id: string) => {
     onClose();
@@ -51,81 +53,174 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     setTimeout(() => {
       setCopied(false);
       onClose();
-    }, 1200);
+    }, 1000);
   };
 
-  const items = [
-    {
-      type: "navigation",
-      label: "View Featured Work & Projects",
-      category: "Sections",
-      action: () => navigateTo("work"),
-      icon: Code2,
-    },
-    {
-      type: "navigation",
-      label: "Architecture & System Design Approach",
-      category: "Sections",
-      action: () => navigateTo("systems"),
-      icon: Server,
-    },
-    {
-      type: "navigation",
-      label: "Technical Stack (React, Django, Node, MySQL)",
-      category: "Sections",
-      action: () => navigateTo("skills"),
-      icon: Database,
-    },
-    {
-      type: "navigation",
-      label: "Work Experience & History",
-      category: "Sections",
-      action: () => navigateTo("experience"),
-      icon: Terminal,
-    },
-    {
-      type: "navigation",
-      label: "Contact & Opportunities",
-      category: "Sections",
-      action: () => navigateTo("contact"),
-      icon: Mail,
-    },
-    // Projects
-    ...projects.map((p) => ({
-      type: "project",
-      label: p.title,
-      category: `Project: ${p.category}`,
-      action: () => navigateTo("work"),
-      icon: Code2,
-    })),
-    // Actions
-    {
-      type: "action",
-      label: copied ? "Email Copied to Clipboard!" : `Copy Email (${profile.socials.email})`,
-      category: "Quick Actions",
-      action: copyEmail,
-      icon: copied ? Check : Copy,
-    },
-    {
-      type: "action",
-      label: "Open GitHub Profile (github.com/Kavinretra)",
-      category: "Quick Actions",
-      action: () => {
-        window.open(profile.socials.github, "_blank");
-        onClose();
+  const items: CommandItem[] = useMemo(
+    () => [
+      {
+        id: "nav-work",
+        type: "navigation",
+        label: "View Featured Work & Case Studies",
+        category: "Sections",
+        action: () => navigateTo("work"),
+        icon: Code2,
       },
-      icon: GithubIcon,
-    },
-  ];
-
-  const filteredItems = items.filter(
-    (item) =>
-      item.label.toLowerCase().includes(query.toLowerCase()) ||
-      item.category.toLowerCase().includes(query.toLowerCase())
+      {
+        id: "nav-systems",
+        type: "navigation",
+        label: "Architecture & AI Engineering Approach",
+        category: "Sections",
+        action: () => navigateTo("systems"),
+        icon: Server,
+      },
+      {
+        id: "nav-skills",
+        type: "navigation",
+        label: "Technical Stack (Python, Django, React, AWS)",
+        category: "Sections",
+        action: () => navigateTo("skills"),
+        icon: Database,
+      },
+      {
+        id: "nav-experience",
+        type: "navigation",
+        label: "Work Experience & Certifications",
+        category: "Sections",
+        action: () => navigateTo("experience"),
+        icon: Terminal,
+      },
+      {
+        id: "nav-contact",
+        type: "navigation",
+        label: "Contact & Opportunities",
+        category: "Sections",
+        action: () => navigateTo("contact"),
+        icon: Mail,
+      },
+      ...projects.map((p) => ({
+        id: `proj-${p.id}`,
+        type: "project" as const,
+        label: p.title,
+        category: `Project: ${p.category}`,
+        action: () => navigateTo(p.id),
+        icon: Code2,
+      })),
+      {
+        id: "action-resume",
+        type: "action",
+        label: "View / Print Resume (PDF)",
+        category: "Quick Actions",
+        action: () => {
+          onClose();
+          router.push("/resume");
+        },
+        icon: FileText,
+      },
+      {
+        id: "action-copy-email",
+        type: "action",
+        label: copied
+          ? "Email Copied to Clipboard!"
+          : `Copy Email (${profile.socials.email})`,
+        category: "Quick Actions",
+        action: copyEmail,
+        icon: copied ? Check : Copy,
+      },
+      {
+        id: "action-linkedin",
+        type: "action",
+        label: "Open LinkedIn Profile",
+        category: "Quick Actions",
+        action: () => {
+          window.open(profile.socials.linkedin, "_blank", "noopener,noreferrer");
+          onClose();
+        },
+        icon: LinkedinIcon,
+      },
+      {
+        id: "action-github",
+        type: "action",
+        label: "Open GitHub Profile (github.com/Kavinretra)",
+        category: "Quick Actions",
+        action: () => {
+          window.open(profile.socials.github, "_blank", "noopener,noreferrer");
+          onClose();
+        },
+        icon: GithubIcon,
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [copied]
   );
 
+  const filteredItems = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter(
+      (item) =>
+        item.label.toLowerCase().includes(q) ||
+        item.category.toLowerCase().includes(q)
+    );
+  }, [items, query]);
+
+  const safeActiveIndex =
+    filteredItems.length === 0
+      ? 0
+      : Math.min(activeIndex, filteredItems.length - 1);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((prev) =>
+          filteredItems.length === 0 ? 0 : (prev + 1) % filteredItems.length
+        );
+        return;
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((prev) =>
+          filteredItems.length === 0
+            ? 0
+            : (prev - 1 + filteredItems.length) % filteredItems.length
+        );
+        return;
+      }
+      if (e.key === "Enter" && filteredItems[safeActiveIndex]) {
+        e.preventDefault();
+        filteredItems[safeActiveIndex].action();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose, filteredItems, safeActiveIndex]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const activeButton = listRef.current?.querySelector<HTMLElement>(
+      `[data-index="${safeActiveIndex}"]`
+    );
+    activeButton?.scrollIntoView({ block: "nearest" });
+  }, [safeActiveIndex, isOpen]);
+
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command palette"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-black/80 backdrop-blur-md"
+    >
       <div
         className="relative w-full max-w-xl rounded-2xl border border-zinc-700/80 bg-zinc-900 shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
@@ -135,10 +230,13 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           <Search className="h-4 w-4 text-zinc-400 shrink-0" />
           <input
             type="text"
-            placeholder="Type a command or search (e.g. Django, Work, Contact)..."
+            placeholder="Type a command or search (e.g. Django, Resume, AI, Contact)..."
             autoFocus
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setActiveIndex(0);
+            }}
             className="w-full bg-transparent text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none font-mono"
           />
           <kbd className="hidden sm:inline-block text-[11px] font-mono text-zinc-500 bg-zinc-800/80 px-2 py-0.5 rounded border border-zinc-700/60">
@@ -147,7 +245,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         </div>
 
         {/* Results List */}
-        <div className="max-h-80 overflow-y-auto p-2 space-y-1">
+        <div ref={listRef} className="max-h-80 overflow-y-auto p-2 space-y-1">
           {filteredItems.length === 0 ? (
             <div className="py-8 text-center text-xs font-mono text-zinc-500">
               No matching commands or projects found.
@@ -155,14 +253,28 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           ) : (
             filteredItems.map((item, idx) => {
               const Icon = item.icon;
+              const isSelected = idx === safeActiveIndex;
               return (
                 <button
-                  key={idx}
+                  key={item.id}
+                  data-index={idx}
+                  type="button"
+                  onMouseEnter={() => setActiveIndex(idx)}
                   onClick={item.action}
-                  className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-zinc-800/80 hover:text-white transition-colors group"
+                  className={`w-full flex items-center justify-between p-2.5 rounded-xl text-left transition-colors group cursor-pointer ${
+                    isSelected
+                      ? "bg-zinc-800/90 text-white"
+                      : "hover:bg-zinc-800/70 hover:text-white"
+                  }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-800 text-zinc-400 group-hover:text-emerald-400 group-hover:bg-zinc-700/80 transition-colors">
+                    <div
+                      className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
+                        isSelected
+                          ? "bg-zinc-700/90 text-emerald-400"
+                          : "bg-zinc-800 text-zinc-400 group-hover:text-emerald-400 group-hover:bg-zinc-700/80"
+                      }`}
+                    >
                       <Icon className="h-3.5 w-3.5" />
                     </div>
                     <div>
@@ -174,7 +286,13 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                       </div>
                     </div>
                   </div>
-                  <ArrowRight className="h-3.5 w-3.5 text-zinc-600 group-hover:text-emerald-400 transition-colors" />
+                  <ArrowRight
+                    className={`h-3.5 w-3.5 transition-colors ${
+                      isSelected
+                        ? "text-emerald-400"
+                        : "text-zinc-600 group-hover:text-emerald-400"
+                    }`}
+                  />
                 </button>
               );
             })
@@ -183,8 +301,8 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
 
         {/* Footer info */}
         <div className="px-4 py-2.5 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] font-mono text-zinc-500">
-          <span>Navigate with click or enter</span>
-          <span>Kavin Retra • Full-Stack Portfolio</span>
+          <span>Use &uarr;&darr; and Enter, or click</span>
+          <span>Kavin Retra &bull; Full-Stack Portfolio</span>
         </div>
       </div>
 

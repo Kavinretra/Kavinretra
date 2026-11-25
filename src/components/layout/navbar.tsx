@@ -6,30 +6,68 @@ import { FileText, Menu, X, Terminal, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface NavbarProps {
   onOpenCommandPalette?: () => void;
 }
 
+const NAV_LINKS = [
+  { href: "#work", id: "work", label: "Work" },
+  { href: "#systems", id: "systems", label: "Architecture" },
+  { href: "#skills", id: "skills", label: "Tech Stack" },
+  { href: "#experience", id: "experience", label: "Experience" },
+  { href: "#contact", id: "contact", label: "Contact" },
+];
+
 export function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#work", label: "Work" },
-    { href: "#systems", label: "Architecture" },
-    { href: "#skills", label: "Tech Stack" },
-    { href: "#experience", label: "Experience" },
-    { href: "#contact", label: "Contact" },
-  ];
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map((l) => l.id);
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0 && visible[0].target.id) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-25% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -59,30 +97,51 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/60 px-4 py-1.5 backdrop-blur-md">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-3 py-1 text-xs font-medium text-zinc-400 hover:text-zinc-100 transition-colors rounded-full hover:bg-zinc-800/50"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav
+          aria-label="Primary navigation"
+          className="hidden md:flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/60 px-3 py-1.5 backdrop-blur-md"
+        >
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "location" : undefined}
+                className={`px-3 py-1 text-xs font-medium transition-colors rounded-full ${
+                  isActive
+                    ? "bg-emerald-500/15 text-emerald-300"
+                    : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right CTA cluster (Desktop) */}
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden md:flex items-center gap-2">
           {/* Command Palette Trigger */}
           <button
             onClick={onOpenCommandPalette}
             type="button"
-            className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-all"
-            title="Open Command Palette"
+            className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-all cursor-pointer"
+            title="Open Command Palette (Cmd + K / Ctrl + K)"
           >
             <Terminal className="h-3.5 w-3.5 text-emerald-400" />
             <span className="font-mono text-[11px] text-zinc-500">Cmd + K</span>
           </button>
+
+          {/* Resume Link */}
+          <Link
+            href="/resume"
+            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 text-xs font-mono text-zinc-300 hover:border-emerald-500/40 hover:text-emerald-300 transition-all"
+            title="View & Print Resume"
+          >
+            <FileText className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Resume</span>
+          </Link>
 
           {/* GitHub link */}
           <a
@@ -104,7 +163,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
               el?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            Let's Talk
+            Let&apos;s Talk
           </Button>
         </div>
 
@@ -121,9 +180,12 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           </button>
 
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
             className="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900/50 min-h-[38px] min-w-[38px] flex items-center justify-center"
             aria-label="Toggle Navigation Menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-drawer"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" />
@@ -135,45 +197,62 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
       </div>
 
       {/* Mobile dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl animate-in slide-in-from-top-2 duration-150">
-          <div className="flex flex-col space-y-1.5">
-            {navLinks.map((link) => (
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-nav-drawer"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.16 }}
+            className="md:hidden border-b border-zinc-800 bg-zinc-950/98 px-5 py-5 backdrop-blur-2xl shadow-2xl"
+          >
+            <div className="flex flex-col space-y-1.5">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-base font-medium text-zinc-200 hover:text-emerald-400 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Link
-                key={link.href}
-                href={link.href}
+                href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium text-zinc-200 hover:text-emerald-400 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
+                className="flex items-center gap-2 text-base font-medium text-emerald-300 hover:text-emerald-200 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-900"
               >
-                {link.label}
+                <FileText className="h-4 w-4" />
+                <span>Resume / CV</span>
               </Link>
-            ))}
-            <div className="pt-4 mt-2 border-t border-zinc-800/80 flex items-center justify-between px-3">
-              <a
-                href={profile.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white py-1"
-              >
-                <GithubIcon className="h-4 w-4" />
-                <span>GitHub</span>
-                <ArrowUpRight className="h-3 w-3" />
-              </a>
-              <Button
-                size="sm"
-                variant="primary"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  const el = document.getElementById("contact");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Get in Touch
-              </Button>
+              <div className="pt-4 mt-2 border-t border-zinc-800/80 flex items-center justify-between px-3">
+                <a
+                  href={profile.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white py-1"
+                >
+                  <GithubIcon className="h-4 w-4" />
+                  <span>GitHub</span>
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    const el = document.getElementById("contact");
+                    el?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Get in Touch
+                </Button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

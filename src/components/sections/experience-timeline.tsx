@@ -1,7 +1,16 @@
 import React from "react";
 import { experiences, ExperienceItem } from "@/data/experience";
 import { profile } from "@/data/profile";
-import { Briefcase, GraduationCap, Calendar, MapPin, Terminal, Award, Languages } from "lucide-react";
+import {
+  Briefcase,
+  GraduationCap,
+  Calendar,
+  MapPin,
+  Terminal,
+  Award,
+  Languages,
+  Compass,
+} from "lucide-react";
 
 export function ExperienceTimeline() {
   return (
@@ -45,9 +54,13 @@ export function ExperienceTimeline() {
                     <span className="text-emerald-400 font-medium text-sm">
                       @ {item.company}
                     </span>
-                    {item.current && (
+                    {item.current ? (
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-800/50 text-emerald-300 font-semibold">
                         CURRENT
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-800 border border-zinc-700/60 text-zinc-400">
+                        {item.duration}
                       </span>
                     )}
                   </div>
@@ -76,7 +89,9 @@ export function ExperienceTimeline() {
                       key={i}
                       className="text-xs text-zinc-300 leading-relaxed flex items-start gap-2.5"
                     >
-                      <span className="text-emerald-400 font-mono font-bold mt-0.5">•</span>
+                      <span className="text-emerald-400 font-mono font-bold mt-0.5">
+                        &bull;
+                      </span>
                       <span>{resp}</span>
                     </li>
                   ))}
@@ -98,13 +113,15 @@ export function ExperienceTimeline() {
           ))}
         </div>
 
-        {/* Certifications & Languages Card Grid */}
+        {/* Certifications, Languages & Interests Card Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Certifications (2 cols) */}
           <div className="md:col-span-2 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 backdrop-blur-sm">
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-4">
               <Award className="h-4 w-4" />
-              <span className="uppercase tracking-wider">Professional Certifications</span>
+              <span className="uppercase tracking-wider">
+                Professional Certifications
+              </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {profile.certifications.map((cert, idx) => (
@@ -117,17 +134,19 @@ export function ExperienceTimeline() {
                   </div>
                   <div className="mt-1 flex items-center justify-between text-[11px] font-mono text-zinc-500">
                     <span>{cert.issuer}</span>
-                    <span className="text-emerald-400/90 font-medium">{cert.year}</span>
+                    <span className="text-emerald-400/90 font-medium">
+                      {cert.year}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Languages & Quick Info (1 col) */}
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 backdrop-blur-sm flex flex-col justify-between">
+          {/* Languages & Interests (1 col) */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 backdrop-blur-sm flex flex-col justify-between gap-5">
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-3">
                 <Languages className="h-4 w-4" />
                 <span className="uppercase tracking-wider">Spoken Languages</span>
               </div>
@@ -143,9 +162,28 @@ export function ExperienceTimeline() {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-zinc-800/70 text-xs font-mono text-zinc-400">
+            <div className="pt-4 border-t border-zinc-800/70">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-3">
+                <Compass className="h-4 w-4" />
+                <span className="uppercase tracking-wider">Areas of Interest</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {profile.interests.map((interest) => (
+                  <span
+                    key={interest}
+                    className="px-2.5 py-1 rounded-md border border-zinc-800 bg-zinc-950/60 text-zinc-300 text-[11px] font-mono"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-zinc-800/70 text-xs font-mono text-zinc-400">
               <div className="text-zinc-500 text-[11px]">Primary Location:</div>
-              <div className="text-zinc-200 font-medium mt-0.5">{profile.location}</div>
+              <div className="text-zinc-200 font-medium mt-0.5">
+                {profile.location}
+              </div>
             </div>
           </div>
         </div>

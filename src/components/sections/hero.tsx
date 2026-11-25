@@ -2,16 +2,31 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowRight, Mail, Terminal, Database, Server, Code2, Layers, Sparkles, Cloud, MapPin } from "lucide-react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Mail,
+  Terminal,
+  Server,
+  Code2,
+  Layers,
+  Sparkles,
+  Cloud,
+  MapPin,
+  FileText,
+} from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/button";
+import { useCommandPalette } from "@/components/common/portfolio-shell";
 
 interface HeroProps {
   onOpenCommandPalette?: () => void;
 }
 
 export function Hero({ onOpenCommandPalette }: HeroProps) {
+  const { openCommandPalette } = useCommandPalette();
+  const handleOpenPalette = onOpenCommandPalette ?? openCommandPalette;
   const corePillars = [
     { label: "React.js", category: "Frontend", icon: Code2, color: "text-cyan-400" },
     { label: "Python & Django", category: "Backend", icon: Server, color: "text-emerald-400" },
@@ -98,6 +113,14 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                 <ArrowRight className="h-4 w-4" />
               </Button>
 
+              <Link
+                href="/resume"
+                className="inline-flex items-center justify-center h-10 px-4 rounded-lg border border-emerald-500/40 bg-emerald-950/40 text-emerald-300 hover:text-emerald-200 hover:border-emerald-400/60 hover:bg-emerald-950/60 transition-all text-sm font-medium gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                <span>Resume</span>
+              </Link>
+
               <Button
                 size="md"
                 variant="secondary"
@@ -131,10 +154,10 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
               </a>
 
               <button
-                onClick={onOpenCommandPalette}
+                onClick={handleOpenPalette}
                 type="button"
-                className="hidden sm:inline-flex items-center gap-1.5 h-10 px-3 rounded-lg border border-dashed border-zinc-700/80 bg-zinc-950/40 text-xs font-mono text-zinc-400 hover:text-zinc-200 hover:border-emerald-500/50 transition-all"
-                title="Press Cmd + K anywhere"
+                className="hidden sm:inline-flex items-center gap-1.5 h-10 px-3 rounded-lg border border-dashed border-zinc-700/80 bg-zinc-950/40 text-xs font-mono text-zinc-400 hover:text-zinc-200 hover:border-emerald-500/50 transition-all cursor-pointer"
+                title="Press Cmd + K or Ctrl + K anywhere"
               >
                 <Terminal className="h-3.5 w-3.5 text-emerald-400" />
                 <span>Cmd + K</span>
@@ -174,7 +197,9 @@ export function Hero({ onOpenCommandPalette }: HeroProps) {
                     </div>
                     <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-800/50">
                       <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[10px] font-mono text-emerald-300 font-semibold">Active</span>
+                      <span className="text-[10px] font-mono text-emerald-300 font-semibold">
+                        Active
+                      </span>
                     </div>
                   </div>
                 </div>

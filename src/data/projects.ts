@@ -1,3 +1,10 @@
+export type ProjectCategory =
+  | "Enterprise System"
+  | "FinTech & Payments"
+  | "Cloud & HRMS"
+  | "AI & Automation"
+  | "Web & Performance";
+
 export interface ProjectMetric {
   label: string;
   value: string;
@@ -13,9 +20,11 @@ export interface Project {
   id: string;
   title: string;
   tagline: string;
-  category: "Enterprise System" | "FinTech & Payments" | "Cloud & HRMS" | "AI & Automation";
+  category: ProjectCategory;
   description: string;
   featured: boolean;
+  visibility: "enterprise" | "public";
+  organization: string;
   architecture: {
     client: string;
     server: string;
@@ -25,7 +34,7 @@ export interface Project {
   stack: string[];
   challenges: ProjectChallenge[];
   metrics: ProjectMetric[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
   diagramAscii?: string;
 }
@@ -35,7 +44,10 @@ export const projects: Project[] = [
     id: "sales-crm-platform",
     title: "Enterprise Sales CRM Platform",
     category: "Enterprise System",
-    tagline: "Comprehensive CRM engine with lead pipeline tracking, invoicing, and granular RBAC.",
+    organization: "CoolGen Solutions",
+    visibility: "enterprise",
+    tagline:
+      "Comprehensive CRM engine with lead pipeline tracking, invoicing, and granular RBAC.",
     description:
       "Engineered an enterprise-grade Sales CRM platform at CoolGen Solutions covering end-to-end sales lifecycles: lead acquisition, stage-by-stage deal tracking, automated invoice generation, and real-time revenue analytics dashboards.",
     featured: true,
@@ -48,11 +60,14 @@ export const projects: Project[] = [
     challenges: [
       {
         problem: "Managing granular permission boundaries across sales reps, managers, and executives.",
-        solution: "Implemented custom Django REST permission classes combined with JWT claims, ensuring users only access authorized leads and financial records.",
+        solution:
+          "Implemented custom Django REST permission classes combined with JWT claims, ensuring users only access authorized leads and financial records.",
+        tradeoff: "Slightly richer JWT claims payload in exchange for zero extra RBAC round-trips on standard reads.",
       },
       {
         problem: "Frontend redundancy across deal stages and repetitive reporting interfaces.",
-        solution: "Constructed a library of reusable React components (data tables, filter chips, status badges) that accelerated subsequent module development by 40%.",
+        solution:
+          "Constructed a library of reusable React components (data tables, filter chips, status badges) to improve maintainability and development velocity.",
       },
     ],
     metrics: [
@@ -60,8 +75,6 @@ export const projects: Project[] = [
       { label: "Security", value: "JWT + RBAC" },
       { label: "Modules", value: "Leads, Deals, Invoices" },
     ],
-    githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://linkedin.com/in/kavinretra",
     diagramAscii: `[React.js Client] --(JWT Bearer)--> [Django REST Framework API]
                                          |
                                          +--(RBAC Guard)--> [MySQL Database: Leads / Deals / Invoices]`,
@@ -70,9 +83,11 @@ export const projects: Project[] = [
     id: "accounting-payments-platform",
     title: "Accounting & Financial Management Platform",
     category: "FinTech & Payments",
+    organization: "CoolGen Solutions",
+    visibility: "enterprise",
     tagline: "Financial operations engine combining Django REST with Node.js payment microservices.",
     description:
-      "Architected a financial management and ledger platform. Handled core accounting transactions via Django and built high-performance payment-related services using Node.js and Express.js, deployed in Docker environments.",
+      "Architected a financial management and ledger platform. Handled core accounting transactions via Django and built payment-related services using Node.js and Express.js, integrated with React.js in Docker-based environments.",
     featured: true,
     architecture: {
       client: "React.js frontend interface with transactional summary views and audit logs",
@@ -83,12 +98,14 @@ export const projects: Project[] = [
     stack: ["Django", "Django REST", "Node.js", "Express.js", "React.js", "MySQL", "Docker"],
     challenges: [
       {
-        problem: "Integrating asynchronous payment gateway webhooks without delaying core ledger calculations.",
-        solution: "Decoupled payment gateway listeners into a lightweight Node.js/Express service, updating MySQL transaction tables and triggering Django ledger updates asynchronously.",
+        problem: "Integrating asynchronous payment workflows without blocking core ledger calculations.",
+        solution:
+          "Decoupled payment listeners into a lightweight Node.js/Express service, recording transaction states in MySQL and coordinating Django ledger updates.",
       },
       {
-        problem: "Ensuring exact environment parity between local development and staging servers.",
-        solution: "Containerized the multi-service stack with Docker, establishing reproducible database migrations and runtime dependencies.",
+        problem: "Ensuring consistent environment parity across multi-service local development and staging.",
+        solution:
+          "Containerized the Python, Node.js, and MySQL stack with Docker, establishing reproducible migrations and runtime dependencies.",
       },
     ],
     metrics: [
@@ -96,34 +113,36 @@ export const projects: Project[] = [
       { label: "Deployment", value: "Docker Containers" },
       { label: "Data Integrity", value: "ACID Ledger" },
     ],
-    githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://linkedin.com/in/kavinretra",
-    diagramAscii: `[React.js UI] ---> [Django REST: Accounting & Invoices] ---> [MySQL 8.0 DB]
+    diagramAscii: `[React.js UI] ---> [Django REST: Accounting & Invoices] ---> [MySQL DB]
                   ---> [Node.js / Express: Payment Service] -----^`,
   },
   {
     id: "hrms-platform",
     title: "Enterprise Employee Management System (HRMS)",
     category: "Cloud & HRMS",
+    organization: "CoolGen Solutions",
+    visibility: "enterprise",
     tagline: "HRMS platform featuring organizational hierarchy workflows and AWS S3 document vaults.",
     description:
-      "Developed enterprise HRMS modules for comprehensive employee management, onboarding workflows, attendance logging, and organizational reporting. Integrated AWS S3 for secure employee document storage.",
+      "Developed enterprise HRMS modules for employee management, onboarding workflows, attendance tracking, and organizational reporting across web and mobile interfaces, with AWS S3 integrated for secure document storage.",
     featured: true,
     architecture: {
       client: "Responsive React.js web and mobile-adapted interfaces for employee self-service",
-      server: "Django & REST APIs managing complex hierarchy approvals and multi-level permissions",
+      server: "Django & REST APIs managing hierarchy approvals and multi-level permissions",
       database: "MySQL for organizational employee schemas, attendance tracking, and audit logs",
-      caching: "AWS S3 for encrypted document storage (contracts, IDs, verification certificates)",
+      caching: "AWS S3 for secure document storage (contracts, IDs, verification certificates)",
     },
     stack: ["React.js", "Python", "Django", "AWS S3", "MySQL", "Role-Based Access Control"],
     challenges: [
       {
-        problem: "Securely handling sensitive employee identity documents and confidential contracts.",
-        solution: "Integrated AWS S3 with pre-signed upload URLs and access restricted via IAM and application-level role authentication.",
+        problem: "Securely storing and serving sensitive employee identity documents and contracts.",
+        solution:
+          "Integrated AWS S3 with scoped IAM policies and time-limited access flows gated by application-level role authentication.",
       },
       {
-        problem: "Modeling complex reporting hierarchies where manager approvals cascade dynamically.",
-        solution: "Designed recursive relational hierarchy queries in MySQL and verified permission validation across every approval step.",
+        problem: "Modeling reporting hierarchies where manager approvals cascade dynamically.",
+        solution:
+          "Structured relational hierarchy tables in MySQL with permission validation enforced at each approval endpoint.",
       },
     ],
     metrics: [
@@ -131,30 +150,44 @@ export const projects: Project[] = [
       { label: "Access Control", value: "Hierarchical RBAC" },
       { label: "Workflows", value: "Onboard, Attend, Report" },
     ],
-    githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://linkedin.com/in/kavinretra",
     diagramAscii: `[React.js Frontend] --> [Django REST API] --> [MySQL: Employee Schemas]
                                       |
-                                      +--(Pre-signed URLs)--> [AWS S3 Document Vault]`,
+                                      +--(IAM Scoped)--> [AWS S3 Document Vault]`,
   },
   {
     id: "ai-agent-automation",
     title: "AI Agent & LLM Automation Workflows",
     category: "AI & Automation",
+    organization: "R&D / Automation",
+    visibility: "enterprise",
     tagline: "Intelligent agent orchestration, tool calling, and prompt engineering pipelines.",
     description:
-      "Engineered automated agentic workflows integrating Large Language Models (LLMs) with enterprise tools. Implemented prompt engineering techniques, function orchestration, and structured tool calling to automate multi-step business tasks.",
+      "Engineered automated agentic workflows integrating Large Language Models (LLMs) with business APIs. Implemented structured prompt engineering, function orchestration, and tool-calling validation loops to automate multi-step tasks reliably.",
     featured: true,
     architecture: {
-      client: "Interactive chat & task execution monitoring dashboard",
-      server: "Python orchestration service managing LLM context, schema validation, and tool dispatch",
-      database: "PostgreSQL / MySQL for persistent conversation logs and tool output caching",
+      client: "Interactive prompt & task execution monitoring interface",
+      server: "Python orchestration layer managing LLM context, schema validation, and tool dispatch",
+      database: "PostgreSQL / MySQL for persistent conversation traces and tool execution logs",
     },
-    stack: ["Python", "AI Agents", "LLM Integration", "Prompt Engineering", "Tool Calling", "REST APIs"],
+    stack: [
+      "Python",
+      "AI Agents",
+      "LLM Integration",
+      "Prompt Engineering",
+      "Tool Calling",
+      "REST APIs",
+    ],
     challenges: [
       {
-        problem: "Preventing hallucinations and ensuring LLM outputs conform to rigid API schemas.",
-        solution: "Implemented strict function calling specifications with Pydantic/JSON schema validation, enforcing tool argument formats before execution.",
+        problem: "Preventing malformed tool arguments and ensuring LLM outputs conform to strict API contracts.",
+        solution:
+          "Defined deterministic JSON tool schemas and validated arguments prior to dispatch, returning structured error feedback into the agent loop for self-correction.",
+      },
+      {
+        problem: "Balancing multi-step reasoning depth against latency and token cost in production workflows.",
+        solution:
+          "Constrained tool-call budgets, injected concise system guardrails, and separated deterministic CRUD steps from LLM decision steps.",
+        tradeoff: "Capped loop iterations require explicit fallback handling for ambiguous inputs.",
       },
     ],
     metrics: [
@@ -162,7 +195,66 @@ export const projects: Project[] = [
       { label: "Output Schema", value: "Strict JSON" },
       { label: "Architecture", value: "Agentic Loop" },
     ],
-    githubUrl: "https://github.com/Kavinretra",
-    liveUrl: "https://linkedin.com/in/kavinretra",
+    diagramAscii: `[User / Trigger] --> [Prompt Guardrails + Context] --> [LLM Reasoning]
+                                                              |
+      [Response / Audit Log] <-- [Tool Dispatcher & Validator] <--(JSON Tool Call)`,
+  },
+  {
+    id: "wordpress-web-solutions",
+    title: "WordPress Web Solutions & Performance Optimization",
+    category: "Web & Performance",
+    organization: "CoolGen Solutions",
+    visibility: "enterprise",
+    tagline: "Custom Elementor layouts, responsive HTML/CSS components, SEO, and accessibility.",
+    description:
+      "Developed and maintained client-facing WordPress websites using Elementor, crafting custom responsive UI components in HTML and CSS while improving page performance, technical SEO, and accessibility compliance.",
+    featured: false,
+    architecture: {
+      client: "Responsive Elementor templates enhanced with custom HTML5/CSS3 components",
+      server: "WordPress CMS with optimized asset delivery and metadata structure",
+      database: "MySQL backing WordPress content types and SEO taxonomy",
+    },
+    stack: ["WordPress", "Elementor", "HTML5", "CSS3", "Technical SEO", "Accessibility"],
+    challenges: [
+      {
+        problem: "Heavy visual builder markup hurting mobile responsiveness and Core Web Vitals.",
+        solution:
+          "Replaced bloated sections with lightweight custom HTML/CSS modules, tuned image sizing, and streamlined semantic heading hierarchy.",
+      },
+    ],
+    metrics: [
+      { label: "Focus", value: "SEO & A11y" },
+      { label: "UI", value: "Responsive CSS" },
+      { label: "Platform", value: "WordPress + Elementor" },
+    ],
+  },
+  {
+    id: "scope-india-portal",
+    title: "Educational Web Portal & CRUD Platform",
+    category: "Web & Performance",
+    organization: "Scope India",
+    visibility: "enterprise",
+    tagline: "Responsive full-stack educational portal with end-to-end CRUD and REST integration.",
+    description:
+      "Built a responsive educational website during my full-stack internship at Scope India, delivering user-friendly frontend interfaces connected to backend CRUD services across development, testing, debugging, and deployment.",
+    featured: false,
+    architecture: {
+      client: "Responsive HTML5, CSS3, Bootstrap, and React.js user interfaces",
+      server: "Node.js / REST backend services handling course and student CRUD operations",
+      database: "MySQL relational tables for educational records and enrollments",
+    },
+    stack: ["React.js", "JavaScript", "HTML5", "CSS3", "Node.js", "MySQL", "REST APIs"],
+    challenges: [
+      {
+        problem: "Coordinating clean form validation and state updates across multi-entity CRUD flows.",
+        solution:
+          "Standardized client-server request payloads and tested API edge cases end-to-end prior to deployment.",
+      },
+    ],
+    metrics: [
+      { label: "Lifecycle", value: "Full SDLC" },
+      { label: "Data Ops", value: "Full CRUD" },
+      { label: "UI", value: "Mobile Responsive" },
+    ],
   },
 ];
